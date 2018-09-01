@@ -2,5 +2,22 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#008000</color>
+    <color name="colorSecondary">#FDD017</color>
+    <color name="black">#000000</color>
+    <color name="green">#008000</color>
+    <color name="orange">#FF923D</color>
+    <color name="white">#FFFFFF</color>
+    <color name="red">#FF0000</color>
+    <color name="gray">#a8a8a8</color>
+    <color name="gray_transparent">#80a8a8a8</color>
+    <color name="transparent">#00000000</color>
+    <color name="transparent_less">#96000000</color>
+    <color name="edit_text">#708099</color>
+    <color name="gray_back">#F0F2F9</color>
+    <color name="login_card">#efe777</color>
+    <color name="gray_light">#e6e7e9</color>
+    <color name="text_color">#556080</color>
+    <color name="blue">#0000FF</color>
+
 </resources>

@@ -10,12 +10,158 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <SearchView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="Sınıf"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_size_2x" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.5"
+                    android:text="İsim-Soyisim"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_size_2x" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.5"
+                    android:paddingStart="20dp"
+                    android:text="Menü"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_size_2x" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.5"
+                    android:paddingStart="20dp"
+                    android:text="Süre"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_size_2x" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="Kontrol"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_size_2x" />
 
 
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <View style="@style/horizontalSep" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/font_size_2x" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="Sınıf"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_size_2x" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.5"
+                    android:text="İsim-Soyisim"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_size_2x" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.5"
+                    android:paddingStart="20dp"
+                    android:text="Menü"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_size_2x" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.5"
+                    android:paddingStart="20dp"
+                    android:text="Süre"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_size_2x" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="Kontrol"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_size_2x" />
+
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view_saved"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
 
 
     </LinearLayout>
+
+    <View style="@style/verticalSep" />
 
     <HorizontalScrollView
         android:layout_width="match_parent"
@@ -23,51 +169,115 @@
         android:layout_marginBottom="5dp"
         android:layout_weight="0.2">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <Button
-                style="@style/ClassesButton"
-                android:text="Ana Sınıfı" />
-
-            <Button
-                style="@style/ClassesButton"
-                android:text="1" />
-
-            <Button
-                style="@style/ClassesButton"
-                android:text="2" />
-
-            <Button
-                style="@style/ClassesButton"
-                android:text="3" />
-
-            <Button
-                style="@style/ClassesButton"
-                android:text="4" />
-
-            <Button
-                style="@style/ClassesButton"
-                android:text="5" />
-
-            <Button
-                style="@style/ClassesButton"
-                android:text="6" />
-
-            <Button
-                style="@style/ClassesButton"
-                android:text="7" />
-
-            <Button
-                style="@style/ClassesButton"
-                android:text="8" />
+            android:layout_height="match_parent">
 
 
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/words"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <Button
+                    style="@style/ClassesButton"
+                    android:onClick="chooseWords"
+                    android:text="A" />
+
+                <Button
+                    style="@style/ClassesButton"
+                    android:onClick="chooseWords"
+                    android:text="A" />
+
+                <Button
+                    style="@style/ClassesButton"
+                    android:onClick="chooseWords"
+                    android:text="A" />
+
+                <Button
+                    style="@style/ClassesButton"
+                    android:onClick="chooseWords"
+                    android:text="A" />
+
+                <Button
+                    style="@style/ClassesButton"
+                    android:onClick="chooseWords"
+                    android:text="A" />
+
+                <Button
+                    style="@style/ClassesButton"
+                    android:onClick="chooseWords"
+                    android:text="A" />
+
+                <Button
+                    style="@style/ClassesButton"
+                    android:onClick="chooseWords"
+                    android:text="A" />
+
+                <Button
+                    style="@style/ClassesButton"
+                    android:onClick="chooseWords"
+                    android:text="A" />
+
+                <Button
+                    style="@style/ClassesButton"
+                    android:onClick="chooseWords"
+                    android:text="A" />
+
+                <Button
+                    style="@style/ClassesButton"
+                    android:onClick="chooseWords"
+                    android:text="A" />
+
+                <Button
+                    style="@style/ClassesButton"
+                    android:onClick="chooseWords"
+                    android:text="A" />
+
+                <Button
+                    style="@style/ClassesButton"
+                    android:onClick="chooseWords"
+                    android:text="A" />
 
 
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/numbers"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    style="@style/ClassesButton"
+                    android:text="@string/ana_sınıfı" />
+
+                <Button
+                    style="@style/ClassesButton"
+                    android:onClick="chooseNumbers"
+                    android:text="@string/_1" />
+
+                <Button
+                    style="@style/ClassesButton"
+                    android:onClick="chooseNumbers"
+                    android:text="@string/_2" />
+
+                <Button
+                    style="@style/ClassesButton"
+                    android:onClick="chooseNumbers"
+                    android:text="@string/_3" />
+
+                <Button
+                    style="@style/ClassesButton"
+                    android:onClick="chooseNumbers"
+                    android:text="@string/_4" />
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
     </HorizontalScrollView>
 
 </LinearLayout>
