@@ -20,8 +20,13 @@
             android:orientation="vertical">
 
             <SearchView
+                android:id="@+id/svSearch"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="60dp"
+                android:background="@drawable/card_rounded"
+                android:onClick="search"
+                android:queryBackground="@color/transparent"
+                android:queryHint="Ara" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -29,49 +34,45 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:text="Sınıf"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font_size_2x" />
+                    android:textSize="@dimen/font_size_2x"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="0.5"
+                    android:layout_weight="3"
+                    android:gravity="center"
                     android:text="İsim-Soyisim"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font_size_2x" />
+                    android:textSize="@dimen/font_size_2x"
+                    android:textStyle="bold" />
+
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="0.5"
-                    android:paddingStart="20dp"
-                    android:text="Menü"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/font_size_2x" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="0.5"
-                    android:paddingStart="20dp"
+                    android:layout_weight="2"
+                    android:gravity="center"
                     android:text="Süre"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font_size_2x" />
+                    android:textSize="@dimen/font_size_2x"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="Kontrol"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="Menü"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font_size_2x" />
+                    android:textSize="@dimen/font_size_2x"
+                    android:textStyle="bold" />
 
 
             </LinearLayout>
@@ -95,12 +96,16 @@
                 android:id="@+id/tvDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+
+                android:gravity="center"
+                android:text="asda"
                 android:textSize="@dimen/font_size_2x" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -140,14 +145,6 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/font_size_2x" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="Kontrol"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/font_size_2x" />
-
 
             </LinearLayout>
 
@@ -163,121 +160,180 @@
 
     <View style="@style/verticalSep" />
 
-    <HorizontalScrollView
+    <LinearLayout
+        android:id="@+id/words"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="5dp"
-        android:layout_weight="0.2">
+        android:layout_weight="0.2"
+        android:visibility="gone"
+        android:weightSum="12">
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+        <Button
+            style="@style/ClassesButton"
+            android:onClick="chooseWords"
+            android:text="A" />
 
+        <Button
+            style="@style/ClassesButton"
+            android:onClick="chooseWords"
+            android:text="A" />
 
-            <LinearLayout
-                android:id="@+id/words"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:visibility="gone">
+        <Button
+            style="@style/ClassesButton"
+            android:onClick="chooseWords"
+            android:text="A" />
 
-                <Button
-                    style="@style/ClassesButton"
-                    android:onClick="chooseWords"
-                    android:text="A" />
+        <Button
+            style="@style/ClassesButton"
+            android:onClick="chooseWords"
+            android:text="A" />
 
-                <Button
-                    style="@style/ClassesButton"
-                    android:onClick="chooseWords"
-                    android:text="A" />
+        <Button
+            style="@style/ClassesButton"
+            android:onClick="chooseWords"
+            android:text="A" />
 
-                <Button
-                    style="@style/ClassesButton"
-                    android:onClick="chooseWords"
-                    android:text="A" />
+        <Button
+            style="@style/ClassesButton"
+            android:onClick="chooseWords"
+            android:text="A" />
 
-                <Button
-                    style="@style/ClassesButton"
-                    android:onClick="chooseWords"
-                    android:text="A" />
+        <Button
+            style="@style/ClassesButton"
+            android:onClick="chooseWords"
+            android:text="A" />
 
-                <Button
-                    style="@style/ClassesButton"
-                    android:onClick="chooseWords"
-                    android:text="A" />
+        <Button
+            style="@style/ClassesButton"
+            android:onClick="chooseWords"
+            android:text="A" />
 
-                <Button
-                    style="@style/ClassesButton"
-                    android:onClick="chooseWords"
-                    android:text="A" />
+        <Button
+            style="@style/ClassesButton"
+            android:onClick="chooseWords"
+            android:text="A" />
 
-                <Button
-                    style="@style/ClassesButton"
-                    android:onClick="chooseWords"
-                    android:text="A" />
+        <Button
+            style="@style/ClassesButton"
+            android:onClick="chooseWords"
+            android:text="A" />
 
-                <Button
-                    style="@style/ClassesButton"
-                    android:onClick="chooseWords"
-                    android:text="A" />
+        <Button
+            style="@style/ClassesButton"
+            android:onClick="chooseWords"
+            android:text="A" />
 
-                <Button
-                    style="@style/ClassesButton"
-                    android:onClick="chooseWords"
-                    android:text="A" />
-
-                <Button
-                    style="@style/ClassesButton"
-                    android:onClick="chooseWords"
-                    android:text="A" />
-
-                <Button
-                    style="@style/ClassesButton"
-                    android:onClick="chooseWords"
-                    android:text="A" />
-
-                <Button
-                    style="@style/ClassesButton"
-                    android:onClick="chooseWords"
-                    android:text="A" />
+        <Button
+            style="@style/ClassesButton"
+            android:onClick="chooseWords"
+            android:text="A" />
 
 
-            </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llWordsChildSchool"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.2"
+        android:visibility="gone"
+        android:weightSum="8">
+
+        <Button
+            style="@style/ClassesButton"
+            android:onClick="chooseChildHoodClass"
+            android:text="A" />
+
+        <Button
+            style="@style/ClassesButton"
+            android:onClick="chooseChildHoodClass"
+
+            android:text="A" />
+
+        <Button
+            style="@style/ClassesButton"
+            android:onClick="chooseChildHoodClass"
+
+            android:text="A" />
+
+        <Button
+            style="@style/ClassesButton"
+            android:onClick="chooseChildHoodClass"
+
+            android:text="A" />
+
+        <Button
+            style="@style/ClassesButton"
+            android:onClick="chooseChildHoodClass"
+
+            android:text="A" />
+
+        <Button
+            style="@style/ClassesButton"
+            android:onClick="chooseChildHoodClass"
+
+            android:text="A" />
+
+        <Button
+            style="@style/ClassesButton"
+            android:onClick="chooseChildHoodClass"
+
+            android:text="A" />
+
+        <Button
+            style="@style/ClassesButton"
+            android:onClick="chooseChildHoodClass"
+            android:text="A" />
 
 
-            <LinearLayout
-                android:id="@+id/numbers"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
 
-                <Button
-                    style="@style/ClassesButton"
-                    android:text="@string/ana_sınıfı" />
+    </LinearLayout>
 
-                <Button
-                    style="@style/ClassesButton"
-                    android:onClick="chooseNumbers"
-                    android:text="@string/_1" />
+    <LinearLayout
+        android:id="@+id/numbers"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.2"
+        android:orientation="horizontal"
+        android:weightSum="5">
 
-                <Button
-                    style="@style/ClassesButton"
-                    android:onClick="chooseNumbers"
-                    android:text="@string/_2" />
+        <Button
+            android:onClick="chooseChildHood"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/ana_sınıfı" />
 
-                <Button
-                    style="@style/ClassesButton"
-                    android:onClick="chooseNumbers"
-                    android:text="@string/_3" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="chooseNumbers"
+            android:text="@string/_1" />
 
-                <Button
-                    style="@style/ClassesButton"
-                    android:onClick="chooseNumbers"
-                    android:text="@string/_4" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="chooseNumbers"
+            android:text="@string/_2" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="chooseNumbers"
+            android:text="@string/_3" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="chooseNumbers"
+            android:text="@string/_4" />
 
 
-            </LinearLayout>
+    </LinearLayout>
 
-        </RelativeLayout>
-    </HorizontalScrollView>
 
 </LinearLayout>

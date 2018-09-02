@@ -11,37 +11,37 @@
         android:orientation="horizontal">
 
         <TextView
+            android:gravity="center"
             android:id="@+id/tvClass"
-            android:layout_width="wrap_content"
-            android:layout_height="75dp"
-            android:layout_margin="5dp" />
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:textColor="@color/black" />
 
         <TextView
+            android:paddingEnd="15dp"
             android:id="@+id/tvFullName"
-            android:layout_width="wrap_content"
-            android:layout_height="75dp"
-            android:layout_margin="5dp" />
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:textColor="@color/black" />
 
         <Spinner
             android:id="@+id/spnTime"
-            android:layout_width="wrap_content"
-            android:layout_height="75dp" />
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="2" />
+
 
         <Button
             android:id="@+id/btnMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="75dp" />
-
-
-        <CheckBox
-            android:id="@+id/cbIsControl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="2" />
 
 
     </LinearLayout>
 
-    <View
-        style="@style/verticalSep"
-        android:background="@color/gray" />
+    <View style="@style/verticalSep" />
 </RelativeLayout>

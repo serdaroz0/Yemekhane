@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
@@ -23,7 +24,6 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
         TextView tvFullName, tvClass;
         Button btnMenu;
         Spinner spnTime;
-        CheckBox cbIsControl;
 
         private ViewHolder(View v) {
             super(v);
@@ -31,7 +31,6 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
             this.tvClass = v.findViewById(R.id.tvClass);
             this.btnMenu = v.findViewById(R.id.btnMenu);
             this.spnTime = v.findViewById(R.id.spnTime);
-            this.cbIsControl = v.findViewById(R.id.cbIsControl);
 
         }
     }
@@ -64,6 +63,10 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
                     context.startActivity(new Intent(context, MenuActivity.class));
                 }
             });
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
+                    R.array.Time, android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            holder.spnTime.setAdapter(adapter);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

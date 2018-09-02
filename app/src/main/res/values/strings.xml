@@ -5,4 +5,10 @@
     <string name="_2">2</string>
     <string name="_3">3</string>
     <string name="_4">4</string>
+
+    <string-array name="Time">
+        <item>Günlük</item>
+        <item>Haftalık</item>
+        <item>Aylık</item>
+    </string-array>
 </resources>

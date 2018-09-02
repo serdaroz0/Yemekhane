@@ -3,122 +3,189 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     tools:context=".MenuActivity">
-
-    <Button
-        android:layout_width="125dp"
-        android:layout_height="75dp"
-        android:text="Yemek" />
-
-    <Button
-        android:layout_width="125dp"
-        android:layout_height="75dp"
-        android:text="Yemek" />
-
-    <Button
-        android:layout_width="125dp"
-        android:layout_height="75dp"
-        android:text="Yemek" />
-
-    <Button
-        android:layout_width="125dp"
-        android:layout_height="75dp"
-        android:text="Yemek" />
-
-    <Button
-        android:layout_width="125dp"
-        android:layout_height="75dp"
-        android:text="Yemek" />
-
-    <Button
-        android:layout_width="125dp"
-        android:layout_height="75dp"
-        android:text="Yemek" />
-
-    <Button
-        android:layout_width="125dp"
-        android:layout_height="75dp"
-        android:text="Yemek" />
-
-    <Button
-        android:layout_width="125dp"
-        android:layout_height="75dp"
-        android:text="Yemek" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-    <Button
-        android:layout_width="125dp"
-        android:layout_height="75dp"
-        android:text="Yemek" />
+        <Button
+            android:layout_width="125dp"
+            android:layout_height="75dp"
+            android:onClick="getText"
+            android:text="Yemek" />
 
-    <Button
-        android:layout_width="125dp"
-        android:layout_height="75dp"
-        android:text="Yemek" />
+        <Button
+            android:layout_width="125dp"
 
-    <Button
-        android:layout_width="125dp"
-        android:layout_height="75dp"
-        android:text="Yemek" />
+            android:layout_height="75dp"
+            android:onClick="getText"
+            android:text="Yemek" />
 
-    <Button
-        android:layout_width="125dp"
-        android:layout_height="75dp"
-        android:text="Yemek" />
+        <Button
+            android:layout_width="125dp"
+            android:layout_height="75dp"
+            android:onClick="getText"
+            android:text="Yemek" />
 
-    <Button
-        android:layout_width="125dp"
-        android:layout_height="75dp"
-        android:text="Yemek" />
+        <Button
+            android:layout_width="125dp"
+            android:layout_height="75dp"
+            android:onClick="getText"
+            android:text="Yemek" />
 
-    <Button
-        android:layout_width="125dp"
-        android:layout_height="75dp"
-        android:text="Yemek" />
+        <Button
+            android:layout_width="125dp"
+            android:layout_height="75dp"
+            android:onClick="getText"
+            android:text="Yemek" />
 
-    <Button
-        android:layout_width="125dp"
-        android:layout_height="75dp"
-        android:text="Yemek" />
+        <Button
+            android:layout_width="125dp"
+            android:layout_height="75dp"
+            android:onClick="getText"
+            android:text="Yemek" />
 
-    <Button
-        android:layout_width="125dp"
-        android:layout_height="75dp"
-        android:text="Yemek" />
+        <Button
+            android:layout_width="125dp"
+            android:layout_height="75dp"
+            android:onClick="getText"
+            android:text="Yemek" />
 
-    <Button
-        android:layout_width="125dp"
-        android:layout_height="75dp"
-        android:text="Yemek" />
+        <Button
+            android:layout_width="125dp"
+            android:layout_height="75dp"
+            android:onClick="getText"
+            android:text="Yemek" />
 
-    <Button
-        android:layout_width="125dp"
-        android:layout_height="75dp"
-        android:text="Yemek" />
+        <Button
+            android:layout_width="125dp"
+            android:layout_height="75dp"
+            android:onClick="getText"
+            android:text="Yemek" />
 
-    <Button
-        android:layout_width="125dp"
-        android:layout_height="75dp"
-        android:text="Yemek" />
-
-    <Button
-        android:layout_width="125dp"
-        android:layout_height="75dp"
-        android:text="Yemek" />
-
-    <Button
-        android:layout_width="125dp"
-        android:layout_height="75dp"
-        android:text="Yemek" />
-
-    <Button
-        android:layout_width="125dp"
-        android:layout_height="75dp"
-        android:text="Yemek" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="125dp"
+            android:layout_height="75dp"
+            android:onClick="getText"
+            android:text="Yemek" />
+
+        <Button
+            android:layout_width="125dp"
+            android:layout_height="75dp"
+            android:onClick="getText"
+            android:text="Yemek" />
+
+        <Button
+            android:layout_width="125dp"
+            android:layout_height="75dp"
+            android:onClick="getText"
+            android:text="Yemek" />
+
+        <Button
+            android:layout_width="125dp"
+            android:layout_height="75dp"
+            android:onClick="getText"
+            android:text="Yemek" />
+
+        <Button
+            android:layout_width="125dp"
+            android:layout_height="75dp"
+            android:onClick="getText"
+            android:text="Yemek" />
+
+        <Button
+            android:layout_width="125dp"
+            android:layout_height="75dp"
+            android:text="Yemek" />
+
+        <Button
+            android:layout_width="125dp"
+            android:layout_height="75dp"
+            android:onClick="getText"
+            android:text="Yemek" />
+
+        <Button
+            android:layout_width="125dp"
+            android:layout_height="75dp"
+            android:onClick="getText"
+            android:text="Yemek" />
+
+        <Button
+            android:layout_width="125dp"
+            android:layout_height="75dp"
+            android:onClick="getText"
+            android:text="Yemek" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="125dp"
+            android:layout_height="75dp"
+            android:onClick="getText"
+            android:text="Yemek" />
+
+        <Button
+            android:layout_width="125dp"
+            android:layout_height="75dp"
+            android:onClick="getText"
+            android:text="Yemek" />
+
+        <Button
+            android:layout_width="125dp"
+            android:layout_height="75dp"
+            android:onClick="getText"
+            android:text="Yemek" />
+
+        <Button
+            android:layout_width="125dp"
+            android:layout_height="75dp"
+            android:onClick="getText"
+            android:text="Yemek" />
+
+        <Button
+            android:layout_width="125dp"
+            android:layout_height="75dp"
+            android:onClick="getText"
+            android:text="Yemek" />
+
+        <Button
+            android:layout_width="125dp"
+            android:layout_height="75dp"
+            android:onClick="getText"
+            android:text="Yemek" />
+
+        <Button
+            android:layout_width="125dp"
+            android:layout_height="75dp"
+            android:onClick="getText"
+            android:text="Yemek" />
+
+        <Button
+            android:layout_width="125dp"
+            android:layout_height="75dp"
+            android:onClick="getText"
+            android:text="Yemek" />
+
+        <Button
+            android:layout_width="125dp"
+            android:layout_height="75dp"
+            android:onClick="getText"
+            android:text="Yemek" />
+
+    </LinearLayout>
 </LinearLayout>
