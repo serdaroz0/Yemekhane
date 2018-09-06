@@ -1,4 +1,4 @@
-package kantin.com.yemekhane;
+package kantin.com.yemekhane.model;
 
 import java.io.Serializable;
 
@@ -9,6 +9,23 @@ public class PersonModel implements Serializable {
     private String className;
     private String menu;
     private String time;
+    private Boolean statusSave;
+
+    public String getClassNumber() {
+        return classNumber;
+    }
+
+    public void setClassNumber(String classNumber) {
+        this.classNumber = classNumber;
+    }
+
+    public Boolean getStatusSave() {
+        return statusSave;
+    }
+
+    public void setStatusSave(Boolean statusSave) {
+        this.statusSave = statusSave;
+    }
 
     public String getFullName() {
         return fullName;
@@ -24,14 +41,6 @@ public class PersonModel implements Serializable {
 
     public void setClassName(String className) {
         this.className = className;
-    }
-
-    public String getCllassNumber() {
-        return classNumber;
-    }
-
-    public void setCllassNumber(String cllassNumber) {
-        this.classNumber = cllassNumber;
     }
 
     public String getMenu() {
@@ -50,11 +59,12 @@ public class PersonModel implements Serializable {
         this.time = time;
     }
 
-    public PersonModel(String fullName,  String classNumber, String className, String menu, String time) {
+    public PersonModel(String fullName, String classNumber, String className, String menu, String time, Boolean statusSave) {
         this.fullName = fullName;
-        this.className = className;
         this.classNumber = classNumber;
+        this.className = className;
         this.menu = menu;
         this.time = time;
+        this.statusSave = statusSave;
     }
 }

@@ -6,6 +6,34 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|start"
+                android:text="Yemekhane"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_2x" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:onClick="sendMail"
+                android:src="@drawable/ic_gmail" />
+        </LinearLayout>
+    </Toolbar>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -95,58 +123,60 @@
             <TextView
                 android:id="@+id/tvDate"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-
+                android:layout_height="50dp"
                 android:gravity="center"
-                android:text="asda"
                 android:textSize="@dimen/font_size_2x" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:text="Sınıf"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font_size_2x" />
+                    android:textSize="@dimen/font_size_2x"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="0.5"
+                    android:layout_weight="3"
+                    android:gravity="center"
                     android:text="İsim-Soyisim"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font_size_2x" />
+                    android:textSize="@dimen/font_size_2x"
+                    android:textStyle="bold" />
+
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="0.5"
-                    android:paddingStart="20dp"
-                    android:text="Menü"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/font_size_2x" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="0.5"
-                    android:paddingStart="20dp"
+                    android:layout_weight="2"
+                    android:gravity="center"
                     android:text="Süre"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font_size_2x" />
+                    android:textSize="@dimen/font_size_2x"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="Menü"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_size_2x"
+                    android:textStyle="bold" />
 
 
             </LinearLayout>
+
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view_saved"
@@ -286,7 +316,6 @@
             android:text="A" />
 
 
-
     </LinearLayout>
 
     <LinearLayout
@@ -298,10 +327,10 @@
         android:weightSum="5">
 
         <Button
-            android:onClick="chooseChildHood"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="chooseChildHood"
             android:text="@string/ana_sınıfı" />
 
         <Button

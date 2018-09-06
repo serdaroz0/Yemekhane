@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MenuActivity"
+            android:name=".activities.MenuActivity"
             android:screenOrientation="landscape" />
     </application>
 
