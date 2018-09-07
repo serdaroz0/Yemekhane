@@ -52,8 +52,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:background="@drawable/card_rounded"
+                android:imeOptions="actionSearch"
                 android:onClick="search"
-                android:queryBackground="@color/transparent"
                 android:queryHint="Ara" />
 
             <LinearLayout

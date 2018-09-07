@@ -19,7 +19,6 @@ import kantin.com.yemekhane.activities.MenuActivity;
 import kantin.com.yemekhane.model.PersonModel;
 
 public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder> {
-
     private ArrayList<PersonModel> personModels;
     private Context context;
 
@@ -99,5 +98,14 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
         return (personModels == null) ? 0 : personModels.size();
 
     }
+
+    public void setFilter(ArrayList<PersonModel> queryList) {
+        personModels = new ArrayList<>();
+        personModels.addAll(queryList);
+        notifyDataSetChanged();
+
+
+    }
 }
+
 

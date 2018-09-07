@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.svSearch)
     SearchView svSearch;
     RecyclerView mRecyclerView, recyclerView;
+    RecyclerView.Adapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,25 @@ public class MainActivity extends AppCompatActivity {
         date();
         mRecyclerView = findViewById(R.id.recycler_view);
         recyclerView = findViewById(R.id.recycler_view_saved);
+        mRecyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mAdapter = new PersonAdapter(personModels, this);
+        svSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                final ArrayList<PersonModel> filterModelList = filter(personModels, newText);
+                mRecyclerView.setAdapter(mAdapter);
+                PersonAdapter personAdapter = (PersonAdapter) mRecyclerView.getAdapter();
+                personAdapter.setFilter(filterModelList);
+                return true;
+            }
+        });
 //        personModelsSaved = Util.loadCardsSaved(this, personModelsSaved);
 //        for (int i = 0; i < personModelsSaved.size(); i++) {
 //            Log.d("getText: ", personModelsSaved.get(i).getFullName());
@@ -58,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 //        }
         personModels = Util.loadCards(this, personModels);
         personModelsSaved = Util.loadCardsSaved(this, personModelsSaved);
-        setPersonModelAdapter();
+
         setPersonModelsSavedAdapter();
     }
 
@@ -107,13 +127,6 @@ public class MainActivity extends AppCompatActivity {
         tvDate.setText(formattedCurrentDate + "-" + dayNow);
     }
 
-    private void setPersonModelAdapter() {
-        mRecyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        RecyclerView.Adapter mAdapter = new PersonAdapter(personModels, this);
-        mRecyclerView.setAdapter(mAdapter);
-    }
 
     private void setPersonModelsSavedAdapter() {
         recyclerView.setHasFixedSize(true);
@@ -121,6 +134,18 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(mLayoutManagers);
         RecyclerView.Adapter mAdapters = new SavedPersonAdapter(personModelsSaved, this);
         recyclerView.setAdapter(mAdapters);
+    }
+
+    private ArrayList<PersonModel> filter(ArrayList<PersonModel> pm, String query) {
+        query = query.toLowerCase();
+        final ArrayList<PersonModel> filteredPersons = new ArrayList<>();
+        for (PersonModel personModel : pm) {
+            final String text = personModel.getFullName().toLowerCase();
+            if (text.startsWith(query)) {
+                filteredPersons.add(personModel);
+            }
+        }
+        return filteredPersons;
     }
 
 }

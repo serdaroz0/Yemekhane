@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import kantin.com.yemekhane.model.PersonModel;
 
@@ -27,6 +28,33 @@ public class Util {
         }
         return cardModels;
     }
+
+    public static String replaceTRChars(String s) {
+        char[] result = s.toCharArray();
+        for (int i = 0; i < result.length; i++) {
+            Character replacement = trchars.get(result[i]);
+            if (replacement != null) result[i] = replacement;
+        }
+        return new String(result);
+    }
+
+    private static final HashMap<Character, Character> trchars = new HashMap<Character, Character>() {
+        {
+            put('Ğ', 'G');
+            put('Ü', 'U');
+            put('Ş', 'S');
+            put('İ', 'I');
+            put('Ö', 'O');
+            put('Ç', 'C');
+            put('ğ', 'g');
+            put('ü', 'u');
+            put('ş', 's');
+            put('ı', 'i');
+            put('ö', 'o');
+            put('ç', 'c');
+        }
+    };
+
     public static Object loadObject(Context context, String fileName) {
         Object obj = null;
         try {
@@ -45,9 +73,11 @@ public class Util {
         }
         return obj;
     }
+
     public static boolean isFileExists(Context c, String fileName) {
         return c.getFileStreamPath(fileName).isFile();
     }
+
     public static void saveObject(Context context, Object obj, String fileName) {
         if (checkExternalStorage()) {
             try {
@@ -63,6 +93,7 @@ public class Util {
             }
         }
     }
+
     public static boolean checkExternalStorage() {
         boolean mExternalStorageAvailable = false;
         boolean mExternalStorageWriteable = false;
@@ -77,6 +108,7 @@ public class Util {
         }
         return (mExternalStorageAvailable && mExternalStorageWriteable);
     }
+
     public static ArrayList<PersonModel> loadCardsSaved(Context context, ArrayList<PersonModel> cardModels) {
         cardModels = new ArrayList<>();
 
