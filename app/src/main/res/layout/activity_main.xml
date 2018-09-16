@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".activities.MainActivity">
 
     <Toolbar
         android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:background="@drawable/card_rounded"
-                android:imeOptions="actionSearch"
+                android:imeOptions="actionDone"
                 android:onClick="search"
                 android:queryHint="Ara" />
 
@@ -167,6 +167,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="45dp"
                     android:layout_weight="2"
                     android:gravity="center"
                     android:text="Menü"
@@ -201,7 +202,47 @@
         <Button
             style="@style/ClassesButton"
             android:onClick="chooseWords"
-            android:text="A" />
+            android:text="a" />
+
+        <Button
+            style="@style/ClassesButton"
+            android:onClick="chooseWords"
+            android:text="b" />
+
+        <Button
+            style="@style/ClassesButton"
+            android:onClick="chooseWords"
+            android:text="c" />
+
+        <Button
+            style="@style/ClassesButton"
+            android:onClick="chooseWords"
+            android:text="d" />
+
+        <Button
+            style="@style/ClassesButton"
+            android:onClick="chooseWords"
+            android:text="e" />
+
+        <Button
+            style="@style/ClassesButton"
+            android:onClick="chooseWords"
+            android:text="f" />
+
+        <Button
+            style="@style/ClassesButton"
+            android:onClick="chooseWords"
+            android:text="g" />
+
+        <Button
+            style="@style/ClassesButton"
+            android:onClick="chooseWords"
+            android:text="h" />
+
+        <Button
+            style="@style/ClassesButton"
+            android:onClick="chooseWords"
+            android:text="j" />
 
         <Button
             style="@style/ClassesButton"
@@ -211,52 +252,12 @@
         <Button
             style="@style/ClassesButton"
             android:onClick="chooseWords"
-            android:text="A" />
+            android:text="k" />
 
         <Button
             style="@style/ClassesButton"
             android:onClick="chooseWords"
-            android:text="A" />
-
-        <Button
-            style="@style/ClassesButton"
-            android:onClick="chooseWords"
-            android:text="A" />
-
-        <Button
-            style="@style/ClassesButton"
-            android:onClick="chooseWords"
-            android:text="A" />
-
-        <Button
-            style="@style/ClassesButton"
-            android:onClick="chooseWords"
-            android:text="A" />
-
-        <Button
-            style="@style/ClassesButton"
-            android:onClick="chooseWords"
-            android:text="A" />
-
-        <Button
-            style="@style/ClassesButton"
-            android:onClick="chooseWords"
-            android:text="A" />
-
-        <Button
-            style="@style/ClassesButton"
-            android:onClick="chooseWords"
-            android:text="A" />
-
-        <Button
-            style="@style/ClassesButton"
-            android:onClick="chooseWords"
-            android:text="A" />
-
-        <Button
-            style="@style/ClassesButton"
-            android:onClick="chooseWords"
-            android:text="A" />
+            android:text="l" />
 
 
     </LinearLayout>
@@ -272,48 +273,48 @@
         <Button
             style="@style/ClassesButton"
             android:onClick="chooseChildHoodClass"
-            android:text="A" />
+            android:text="a" />
 
         <Button
             style="@style/ClassesButton"
             android:onClick="chooseChildHoodClass"
 
-            android:text="A" />
+            android:text="b" />
 
         <Button
             style="@style/ClassesButton"
             android:onClick="chooseChildHoodClass"
 
-            android:text="A" />
+            android:text="c" />
 
         <Button
             style="@style/ClassesButton"
             android:onClick="chooseChildHoodClass"
 
-            android:text="A" />
+            android:text="d" />
 
         <Button
             style="@style/ClassesButton"
             android:onClick="chooseChildHoodClass"
 
-            android:text="A" />
+            android:text="e" />
 
         <Button
             style="@style/ClassesButton"
             android:onClick="chooseChildHoodClass"
 
-            android:text="A" />
+            android:text="f" />
 
         <Button
             style="@style/ClassesButton"
             android:onClick="chooseChildHoodClass"
 
-            android:text="A" />
+            android:text="g" />
 
         <Button
             style="@style/ClassesButton"
             android:onClick="chooseChildHoodClass"
-            android:text="A" />
+            android:text="h" />
 
 
     </LinearLayout>

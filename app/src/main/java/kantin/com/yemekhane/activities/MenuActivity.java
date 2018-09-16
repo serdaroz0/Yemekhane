@@ -3,52 +3,74 @@ package kantin.com.yemekhane.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import java.util.ArrayList;
-
-import kantin.com.yemekhane.MainActivity;
 import kantin.com.yemekhane.R;
-import kantin.com.yemekhane.model.PersonModel;
+import kantin.com.yemekhane.model.CodeModel;
+import kantin.com.yemekhane.utils.Services;
 import kantin.com.yemekhane.utils.Util;
 
 public class MenuActivity extends AppCompatActivity {
-    ArrayList<PersonModel> personModels = new ArrayList<>();
-    ArrayList<PersonModel> personModelsSaved = new ArrayList<>();
+
+    CodeModel codeModel = new CodeModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        personModels = Util.loadCards(this, personModels);
-        personModelsSaved = Util.loadCardsSaved(this, personModelsSaved);
-//        for (int i = 0; i < personModels.size(); i++) {
-//            Log.d("getText: ", personModels.get(i).getFullName());
-//        }
+
+
     }
 
     public void getText(View view) {
-        Log.d("getText: ", personModels.get(2).getFullName());
-        Log.d("getText: ", personModels.get(2).getClassName());
-        Button b = (Button) view;
-        String buttonText = b.getText().toString();
-        Log.d("getText: ", buttonText);
+        try {
+            Button b = (Button) view;
+            String buttonText = b.getText().toString();
+            Bundle extras = getIntent().getExtras();
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            int position = extras.getInt("position");
-            personModelsSaved.add(new PersonModel(personModels.get(position).getFullName(), personModels.get(position).getClassNumber(), personModels.get(position).getClassName(), buttonText, personModels.get(position).getTime(), personModels.get(position).getStatusSave()));
-            Log.d("getText: ", personModelsSaved.get(1).getMenu());
-            personModels.get(position).setStatusSave(true);
-            Util.saveObject(this, personModelsSaved, "PersonModelSaved.obj");
-            Util.saveObject(this, personModels, "PersonModel.obj");
-//            for (int i = 0; i < personModelsSaved.size(); i++) {
-//                Log.d("getText: ", personModelsSaved.get(i).getFullName());
+            if (extras != null) {
+                if (extras.getString("from").equals("normal")) {
+                    Services.getInstance().addAndDelete(this, extras.getInt("id"), buttonText, true, extras.getInt("selectedSpinner") + 1, new Services.OnFinishListener() {
+                        @Override
+                        public void onFinish(Object obj) {
+                            codeModel = (CodeModel) obj;
+                            if (codeModel.getCode() == 0) {
+                                Util.showToast(MenuActivity.this, R.string.saved);
+                            }
+
+                        }
+                    }, true);
+
+                } else {
+                    Services.getInstance().changeMenuForMember(this, String.valueOf(extras.getInt("id")), buttonText, new Services.OnFinishListener() {
+                        @Override
+                        public void onFinish(Object obj) {
+                            CodeModel codeModel = (CodeModel) obj;
+                            if (codeModel.getCode() == 0) {
+                                Util.showToast(MenuActivity.this, R.string.changed);
+                            }
+                        }
+                    }, true);
+                }
+            }
 //            }
+// else {
+//                Services.getInstance().changeMenuForMember(this, String.valueOf(extras.getInt("id")), buttonText, new Services.OnFinishListener() {
+//                    @Override
+//                    public void onFinish(Object obj) {
+//                        CodeModel codeModel = (CodeModel) obj;
+//                        if (codeModel.getCode() == 0) {
+//                            Util.showToast(MenuActivity.this, R.string.changed);
+//                        }
+//                    }
+//                }, true);
+//            }
+            startActivity(new Intent(this, MainActivity.class));
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
     }
+
+
 }

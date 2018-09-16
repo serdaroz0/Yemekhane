@@ -83,25 +83,25 @@
             android:layout_width="125dp"
             android:layout_height="75dp"
             android:onClick="getText"
-            android:text="Yemek" />
+            android:text="Yemek1" />
 
         <Button
             android:layout_width="125dp"
             android:layout_height="75dp"
             android:onClick="getText"
-            android:text="Yemek" />
+            android:text="Yemek2" />
 
         <Button
             android:layout_width="125dp"
             android:layout_height="75dp"
             android:onClick="getText"
-            android:text="Yemek" />
+            android:text="Yemek3" />
 
         <Button
             android:layout_width="125dp"
             android:layout_height="75dp"
             android:onClick="getText"
-            android:text="Yemek" />
+            android:text="Yemek4" />
 
         <Button
             android:layout_width="125dp"

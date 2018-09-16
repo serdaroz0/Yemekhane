@@ -16,34 +16,48 @@
             android:layout_height="50dp"
             android:layout_weight="1"
             android:gravity="center"
+            android:maxLines="1"
             android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/tvFullNameSaved"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_weight="3"
-            android:paddingEnd="15dp"
+            android:layout_weight="5"
+            android:paddingEnd="25dp"
+            android:paddingStart="0dp"
+            android:textAlignment="center"
             android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/tvTimeSaved"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_weight="2" />
+            android:layout_weight="2"
+            android:maxLines="1" />
 
 
         <TextView
             android:id="@+id/tvMenuSaved"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_weight="2" />
+            android:layout_weight="2"
+            android:maxLines="1" />
+
+        <Button
+            android:id="@+id/btnChangeMenu"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="2"
+            android:maxLines="1" />
 
         <ImageView
             android:id="@+id/ivDelete"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_weight="0.6"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="0.5"
             android:contentDescription="@string/app_name"
             android:src="@drawable/ic_cancel" />
     </LinearLayout>

@@ -12,14 +12,14 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import kantin.com.yemekhane.R;
 import kantin.com.yemekhane.activities.MenuActivity;
-import kantin.com.yemekhane.model.PersonModel;
+import kantin.com.yemekhane.model.searchModel.SearchList;
 
 public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder> {
-    private ArrayList<PersonModel> personModels;
+    private List<SearchList> searchLists;
     private Context context;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -39,8 +39,8 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
         }
     }
 
-    public PersonAdapter(ArrayList<PersonModel> personModels, Context context) {
-        this.personModels = personModels;
+    public PersonAdapter(List<SearchList> searchLists, Context context) {
+        this.searchLists = searchLists;
         this.context = context;
 
     }
@@ -56,36 +56,41 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull final PersonAdapter.ViewHolder holder, final int position) {
-        PersonModel dp = personModels.get(position);
+        SearchList dp = searchLists.get(position);
         try {
-            if (!dp.getStatusSave()) {
+            String[] mTestArray;
+            mTestArray = context.getResources().getStringArray(R.array.Time);
+            if (!dp.getIsSelected()) {
                 holder.tvTime.setVisibility(View.GONE);
                 holder.tvMenu.setVisibility(View.GONE);
                 holder.btnMenu.setVisibility(View.VISIBLE);
                 holder.spnTime.setVisibility(View.VISIBLE);
                 holder.tvFullName.setText(dp.getFullName());
-                holder.tvClass.setText(dp.getClassNumber() + "-" + dp.getClassName());
+                holder.tvClass.setText(dp.getSchoolNumber());
                 holder.btnMenu.setText(dp.getMenu());
+                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
+                        R.array.Time, android.R.layout.simple_spinner_item);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                holder.spnTime.setAdapter(adapter);
                 holder.btnMenu.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(context, MenuActivity.class);
                         intent.putExtra("position", position);
+                        intent.putExtra("id", dp.getId());
+                        intent.putExtra("from", "normal");
+                        intent.putExtra("selectedSpinner", holder.spnTime.getSelectedItemPosition());
                         context.startActivity(intent);
                     }
                 });
-                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
-                        R.array.Time, android.R.layout.simple_spinner_item);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                holder.spnTime.setAdapter(adapter);
             } else {
                 holder.tvTime.setVisibility(View.VISIBLE);
                 holder.tvMenu.setVisibility(View.VISIBLE);
                 holder.btnMenu.setVisibility(View.GONE);
                 holder.spnTime.setVisibility(View.GONE);
                 holder.tvFullName.setText(dp.getFullName());
-                holder.tvClass.setText(dp.getClassNumber() + "-" + dp.getClassName());
-                holder.tvTime.setText(dp.getTime());
+                holder.tvClass.setText(dp.getSchoolNumber());
+                holder.tvTime.setText(mTestArray[dp.getPaymentPeriod() - 1]);
                 holder.tvMenu.setText(dp.getMenu());
             }
         } catch (Exception ex) {
@@ -95,15 +100,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return (personModels == null) ? 0 : personModels.size();
-
-    }
-
-    public void setFilter(ArrayList<PersonModel> queryList) {
-        personModels = new ArrayList<>();
-        personModels.addAll(queryList);
-        notifyDataSetChanged();
-
+        return (searchLists == null) ? 0 : searchLists.size();
 
     }
 }
