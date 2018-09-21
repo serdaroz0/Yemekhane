@@ -21,15 +21,6 @@
         <item>Cuma</item>
         <item>Cumartesi</item>
     </array>
-    <array name="daysNumber">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-    </array>
 
     <string name="data_not_found">Veri Bulunamadı</string>
     <string name="saved">Kaydedildi</string>
@@ -38,4 +29,5 @@
     <string name="time_out">Zaman Aşımı</string>
     <string name="empty" translatable="false">empty</string>
     <string name="changed">Değiştirildi</string>
+    <string name="mail">Mail</string>
 </resources>

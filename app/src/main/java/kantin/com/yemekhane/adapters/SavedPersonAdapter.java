@@ -3,6 +3,7 @@ package kantin.com.yemekhane.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,19 +23,24 @@ import kantin.com.yemekhane.utils.Util;
 
 public class SavedPersonAdapter extends RecyclerView.Adapter<SavedPersonAdapter.ViewHolder> {
 
-    private List<SearchList> savedPersonModels;
-    private Context context;
+    private final List<SearchList> savedPersonModels;
+    private final Context context;
     private CodeModel codeModel = new CodeModel();
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvClassSaved, tvFullNameSaved, tvTimeSaved, tvMenuSaved;
-        ImageView ivDelete;
-        Button btnChangeMenu;
+        final TextView tvClassSaved;
+        final TextView tvFullNameSaved;
+        final TextView tvTimeSaved;
+        final TextView tvMenuSaved;
+        final ImageView ivDelete;
+        final Button btnChangeMenu;
+        final CardView cvSaved;
 
         private ViewHolder(View v) {
             super(v);
             this.tvClassSaved = v.findViewById(R.id.tvClassSaved);
             this.tvFullNameSaved = v.findViewById(R.id.tvFullNameSaved);
+            this.cvSaved = v.findViewById(R.id.cvSaved);
             this.tvTimeSaved = v.findViewById(R.id.tvTimeSaved);
             this.tvMenuSaved = v.findViewById(R.id.tvMenuSaved);
             this.ivDelete = v.findViewById(R.id.ivDelete);
@@ -53,8 +59,7 @@ public class SavedPersonAdapter extends RecyclerView.Adapter<SavedPersonAdapter.
     public SavedPersonAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_saved_person, parent, false);
-        SavedPersonAdapter.ViewHolder vh = new SavedPersonAdapter.ViewHolder(v);
-        return vh;
+        return new ViewHolder(v);
     }
 
     @Override
@@ -66,28 +71,31 @@ public class SavedPersonAdapter extends RecyclerView.Adapter<SavedPersonAdapter.
             holder.tvFullNameSaved.setText(dp.getFullName());
             holder.tvClassSaved.setText(dp.getSchoolNumber());
             holder.tvTimeSaved.setText(mTestArray[dp.getPaymentPeriod() - 1]);
-            if (dp.getPaymentPeriod() == 1) {
-                holder.tvMenuSaved.setText(dp.getMenu());
-                holder.btnChangeMenu.setVisibility(View.GONE);
-            } else {
-                holder.btnChangeMenu.setText(dp.getMenu());
-                holder.tvMenuSaved.setVisibility(View.GONE);
+            switch (dp.getPaymentPeriod()) {
+                case 1:
+                    holder.tvMenuSaved.setText(dp.getMenu());
+                    holder.btnChangeMenu.setVisibility(View.GONE);
+                    break;
+                case 2:
+                    holder.cvSaved.setCardBackgroundColor(context.getResources().getColor(R.color.gray_dark_light));
+                    holder.btnChangeMenu.setText(dp.getMenu());
+                    holder.tvMenuSaved.setVisibility(View.GONE);
+                    break;
+                case 3:
+                    holder.cvSaved.setCardBackgroundColor(context.getResources().getColor(R.color.gray));
+                    holder.btnChangeMenu.setText(dp.getMenu());
+                    holder.tvMenuSaved.setVisibility(View.GONE);
+                    break;
             }
-            holder.btnChangeMenu.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, MenuActivity.class);
-                    intent.putExtra("id", dp.getId());
-                    intent.putExtra("from", "saved");
-                    context.startActivity(intent);
-                }
+            holder.btnChangeMenu.setOnClickListener(v -> {
+                Intent intent = new Intent(context, MenuActivity.class);
+                intent.putExtra("id", dp.getId());
+                intent.putExtra("from", "saved");
+                context.startActivity(intent);
             });
             holder.ivDelete.setOnClickListener(v ->
 
-            {
-                Services.getInstance().addAndDelete(context, dp.getId(), "Menü", false, 1, new Services.OnFinishListener() {
-                    @Override
-                    public void onFinish(Object obj) {
+                    Services.getInstance().addAndDelete(context, dp.getId(), "Menü", false, 1, obj -> {
                         codeModel = (CodeModel) obj;
                         if (codeModel.getCode() == 0) {
                             savedPersonModels.remove(dp);
@@ -97,9 +105,7 @@ public class SavedPersonAdapter extends RecyclerView.Adapter<SavedPersonAdapter.
                             Util.showToast(context, R.string.data_not_found);
                         }
 
-                    }
-                }, true);
-            });
+                    }, true));
         } catch (Exception ex) {
             ex.printStackTrace();
         }

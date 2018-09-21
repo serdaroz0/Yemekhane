@@ -9,12 +9,13 @@
     <Toolbar
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary">
+        android:background="@color/main">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables">
 
             <TextView
                 android:layout_width="0dp"
@@ -23,14 +24,16 @@
                 android:gravity="center|start"
                 android:text="Yemekhane"
                 android:textColor="@color/white"
-                android:textSize="@dimen/font_size_2x" />
+                android:textSize="@dimen/font_size_2x"
+                tools:ignore="HardcodedText" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 android:onClick="sendMail"
-                android:src="@drawable/ic_gmail" />
+                android:src="@drawable/ic_gmail"
+                android:contentDescription="@string/mail" />
         </LinearLayout>
     </Toolbar>
 
@@ -45,14 +48,15 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="NestedWeights">
 
             <SearchView
                 android:id="@+id/svSearch"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:background="@drawable/card_rounded"
-                android:imeOptions="actionDone"
+                android:imeOptions="actionSearch"
                 android:onClick="search"
                 android:queryHint="Ara" />
 
@@ -90,7 +94,8 @@
                     android:text="Süre"
                     android:textColor="@color/black"
                     android:textSize="@dimen/font_size_2x"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -108,7 +113,8 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp" />
 
         </LinearLayout>
 
@@ -167,7 +173,6 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="45dp"
                     android:layout_weight="2"
                     android:gravity="center"
                     android:text="Menü"
@@ -175,6 +180,11 @@
                     android:textSize="@dimen/font_size_2x"
                     android:textStyle="bold" />
 
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="0.5" />
 
             </LinearLayout>
 
@@ -182,14 +192,14 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view_saved"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp" />
 
         </LinearLayout>
 
 
     </LinearLayout>
 
-    <View style="@style/verticalSep" />
 
     <LinearLayout
         android:id="@+id/words"
@@ -328,37 +338,27 @@
         android:weightSum="5">
 
         <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            style="@style/ClassesButton"
             android:onClick="chooseChildHood"
             android:text="@string/ana_sınıfı" />
 
         <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            style="@style/ClassesButton"
             android:onClick="chooseNumbers"
             android:text="@string/_1" />
 
         <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            style="@style/ClassesButton"
             android:onClick="chooseNumbers"
             android:text="@string/_2" />
 
         <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            style="@style/ClassesButton"
             android:onClick="chooseNumbers"
             android:text="@string/_3" />
 
         <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            style="@style/ClassesButton"
             android:onClick="chooseNumbers"
             android:text="@string/_4" />
 

@@ -6,186 +6,80 @@
     android:orientation="vertical"
     tools:context=".activities.MenuActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+    <LinearLayout style="@style/llMenu">
 
         <Button
-            android:layout_width="125dp"
-            android:layout_height="75dp"
-            android:onClick="getText"
-            android:text="Yemek" />
+            style="@style/btnMenu"
+            android:text="Hamburger" />
 
         <Button
-            android:layout_width="125dp"
-
-            android:layout_height="75dp"
-            android:onClick="getText"
-            android:text="Yemek" />
+            style="@style/btnMenu"
+            android:text="Pizza" />
 
         <Button
-            android:layout_width="125dp"
-            android:layout_height="75dp"
-            android:onClick="getText"
-            android:text="Yemek" />
+            style="@style/btnMenu"
+            android:text="Köfte Ekmek" />
 
         <Button
-            android:layout_width="125dp"
-            android:layout_height="75dp"
-            android:onClick="getText"
-            android:text="Yemek" />
+            style="@style/btnMenu"
+            android:text="Mantı" />
 
-        <Button
-            android:layout_width="125dp"
-            android:layout_height="75dp"
-            android:onClick="getText"
-            android:text="Yemek" />
-
-        <Button
-            android:layout_width="125dp"
-            android:layout_height="75dp"
-            android:onClick="getText"
-            android:text="Yemek" />
-
-        <Button
-            android:layout_width="125dp"
-            android:layout_height="75dp"
-            android:onClick="getText"
-            android:text="Yemek" />
-
-        <Button
-            android:layout_width="125dp"
-            android:layout_height="75dp"
-            android:onClick="getText"
-            android:text="Yemek" />
-
-        <Button
-            android:layout_width="125dp"
-            android:layout_height="75dp"
-            android:onClick="getText"
-            android:text="Yemek" />
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+
+    <LinearLayout style="@style/llMenu">
 
         <Button
-            android:layout_width="125dp"
-            android:layout_height="75dp"
-            android:onClick="getText"
-            android:text="Yemek" />
+            style="@style/btnMenu"
+            android:text="Döner Ekmek" />
 
         <Button
-            android:layout_width="125dp"
-            android:layout_height="75dp"
-            android:onClick="getText"
-            android:text="Yemek1" />
+            style="@style/btnMenu"
+            android:text="Pide" />
 
         <Button
-            android:layout_width="125dp"
-            android:layout_height="75dp"
-            android:onClick="getText"
-            android:text="Yemek2" />
+            style="@style/btnMenu"
+            android:text="Tavuklu Pilav" />
 
         <Button
-            android:layout_width="125dp"
-            android:layout_height="75dp"
-            android:onClick="getText"
-            android:text="Yemek3" />
-
-        <Button
-            android:layout_width="125dp"
-            android:layout_height="75dp"
-            android:onClick="getText"
-            android:text="Yemek4" />
-
-        <Button
-            android:layout_width="125dp"
-            android:layout_height="75dp"
-            android:text="Yemek" />
-
-        <Button
-            android:layout_width="125dp"
-            android:layout_height="75dp"
-            android:onClick="getText"
-            android:text="Yemek" />
-
-        <Button
-            android:layout_width="125dp"
-            android:layout_height="75dp"
-            android:onClick="getText"
-            android:text="Yemek" />
-
-        <Button
-            android:layout_width="125dp"
-            android:layout_height="75dp"
-            android:onClick="getText"
-            android:text="Yemek" />
+            style="@style/btnMenu"
+            android:text="Çorba" />
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+
+    <LinearLayout style="@style/llMenu">
 
         <Button
-            android:layout_width="125dp"
-            android:layout_height="75dp"
-            android:onClick="getText"
-            android:text="Yemek" />
+            style="@style/btnMenu"
+            android:text="Patates - Köfte" />
 
         <Button
-            android:layout_width="125dp"
-            android:layout_height="75dp"
-            android:onClick="getText"
-            android:text="Yemek" />
+            style="@style/btnMenu"
+            android:text="Sade Makarna" />
 
         <Button
-            android:layout_width="125dp"
-            android:layout_height="75dp"
-            android:onClick="getText"
-            android:text="Yemek" />
+            style="@style/btnMenu"
+            android:text="Köfte-Makarna" />
 
-        <Button
-            android:layout_width="125dp"
-            android:layout_height="75dp"
-            android:onClick="getText"
-            android:text="Yemek" />
-
-        <Button
-            android:layout_width="125dp"
-            android:layout_height="75dp"
-            android:onClick="getText"
-            android:text="Yemek" />
-
-        <Button
-            android:layout_width="125dp"
-            android:layout_height="75dp"
-            android:onClick="getText"
-            android:text="Yemek" />
-
-        <Button
-            android:layout_width="125dp"
-            android:layout_height="75dp"
-            android:onClick="getText"
-            android:text="Yemek" />
-
-        <Button
-            android:layout_width="125dp"
-            android:layout_height="75dp"
-            android:onClick="getText"
-            android:text="Yemek" />
-
-        <Button
-            android:layout_width="125dp"
-            android:layout_height="75dp"
-            android:onClick="getText"
-            android:text="Yemek" />
 
     </LinearLayout>
+
+    <LinearLayout style="@style/llMenu">
+
+        <Button
+            style="@style/btnMenu"
+            android:text="Köfte-Pilav" />
+
+        <Button
+            style="@style/btnMenu"
+            android:text="Gözleme" />
+
+        <Button
+            style="@style/btnMenu"
+            android:text="Nugget-Pilav" />
+    </LinearLayout>
+
+
 </LinearLayout>

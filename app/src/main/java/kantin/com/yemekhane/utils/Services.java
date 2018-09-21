@@ -1,8 +1,8 @@
 package kantin.com.yemekhane.utils;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NoConnectionError;
@@ -23,14 +23,15 @@ import kantin.com.yemekhane.model.searchModel.SearchListModel;
 
 public class Services {
     private static final String TAG = Services.class.getName();
-    private static Services mInstance = new Services();
+    @SuppressLint("StaticFieldLeak")
+    private static final Services mInstance = new Services();
     private static int mWaitingRequestCount = 0;
     private RequestQueue mRequestQueue;
     private ProgressDialog progressDialog;
     private Context mContext;
-    public static final String REST_SERVICE = "http://kantin.daxstyle.com";
+    private static final String REST_SERVICE = "http://kantin.daxstyle.com";
 
-    public Response.ErrorListener volleyErrorListener = new Response.ErrorListener() {
+    private final Response.ErrorListener volleyErrorListener = new Response.ErrorListener() {
         @Override
         public void onErrorResponse(VolleyError error) {
             try {
@@ -50,8 +51,8 @@ public class Services {
         }
     };
 
-    private RetryPolicy timeoutPolicy = new DefaultRetryPolicy(30000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-    private RequestQueue.RequestFinishedListener<Object> mRequestFinishedListener = new RequestQueue.RequestFinishedListener<Object>() {
+    private final RetryPolicy timeoutPolicy = new DefaultRetryPolicy(30000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+    private final RequestQueue.RequestFinishedListener<Object> mRequestFinishedListener = new RequestQueue.RequestFinishedListener<Object>() {
         @Override
         public void onRequestFinished(Request<Object> request) {
             mWaitingRequestCount--;
@@ -59,6 +60,7 @@ public class Services {
                 try {
                     if (progressDialog != null) progressDialog.dismiss();
                 } catch (Exception pass) {
+                    //pass
                 }
             }
         }
@@ -83,17 +85,12 @@ public class Services {
 
     private void createProgress() {
         progressDialog = Util.createProgressDialog(mContext);
-        progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                cancelAllRequests();
-            }
-        });
+        progressDialog.setOnCancelListener(dialog -> cancelAllRequests());
         progressDialog.show();
         progressDialog.setContentView(R.layout.progress_dialog);
     }
 
-    public RequestQueue getRequestQueue() {
+    private RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
             mRequestQueue = Volley.newRequestQueue(mContext);
             mRequestQueue.addRequestFinishedListener(mRequestFinishedListener);
@@ -101,7 +98,7 @@ public class Services {
         return mRequestQueue;
     }
 
-    public <T> void add(Request<T> req) {
+    private <T> void add(Request<T> req) {
         req.setTag(TAG);
         req.setRetryPolicy(timeoutPolicy);
         getRequestQueue().add(req);
@@ -109,10 +106,10 @@ public class Services {
     }
 
     public interface OnFinishListener {
-        public void onFinish(Object obj);
+        void onFinish(Object obj);
     }
 
-    public void cancelAllRequests() {
+    private void cancelAllRequests() {
         mRequestQueue.cancelAll(TAG);
     }
 

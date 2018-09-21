@@ -1,7 +1,6 @@
 package kantin.com.yemekhane.utils;
 
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Response;
@@ -22,7 +21,7 @@ import java.util.Map;
 /**
  * Created by Ussal Software on 21.05.2018.
  */
-public class GsonArrayRequest<T> extends JsonRequest<ArrayList<T>> {
+class GsonArrayRequest<T> extends JsonRequest<ArrayList<T>> {
     private final Gson gson = new GsonBuilder().serializeNulls().create();
     private final Class<T> clazz;
     private final Map<String, String> headers;
@@ -44,7 +43,7 @@ public class GsonArrayRequest<T> extends JsonRequest<ArrayList<T>> {
     }
 
     @Override
-    public Map<String, String> getHeaders() throws AuthFailureError {
+    public Map<String, String> getHeaders() {
         Map<String, String> params = headers != null ? headers : new HashMap<>();
         params.put("Content-Type", "application/json; charset=utf-8");
         return params;
@@ -63,9 +62,7 @@ public class GsonArrayRequest<T> extends JsonRequest<ArrayList<T>> {
             return Response.success(
                     tList,
                     HttpHeaderParser.parseCacheHeaders(response));
-        } catch (UnsupportedEncodingException e) {
-            return Response.error(new ParseError(e));
-        } catch (JsonSyntaxException e) {
+        } catch (UnsupportedEncodingException | JsonSyntaxException e) {
             return Response.error(new ParseError(e));
         }
     }

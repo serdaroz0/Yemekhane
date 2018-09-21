@@ -6,8 +6,9 @@ import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Gravity;
-import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.util.Objects;
 
 import kantin.com.yemekhane.R;
 
@@ -32,8 +33,8 @@ public class Util {
     }
 
     public static void startProgressAnimation(ProgressDialog pd) {
-        pd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        AnimationDrawable ad = (AnimationDrawable) ((ImageView) pd.findViewById(R.id.ivLoading)).getBackground();
+        Objects.requireNonNull(pd.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        AnimationDrawable ad = (AnimationDrawable) pd.findViewById(R.id.ivLoading).getBackground();
         ad.start();
     }
 

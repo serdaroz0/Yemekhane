@@ -1,7 +1,6 @@
 package kantin.com.yemekhane.utils;
 
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Response;
@@ -20,10 +19,9 @@ import java.util.Map;
 /**
  * Created by Ussal Software on 21.05.2018.
  */
-public class GsonRequest<T> extends JsonRequest<T> {
+class GsonRequest<T> extends JsonRequest<T> {
     private final Gson gson = new GsonBuilder().serializeNulls().create();
     private final Class<T> clazz;
-    private final Map<String, String> headers;
     private final Response.Listener<T> listener;
 
     /**
@@ -37,12 +35,11 @@ public class GsonRequest<T> extends JsonRequest<T> {
                        Response.Listener<T> listener, Response.ErrorListener errorListener) {
         super(method, url, (postData == null) ? "" : postData.toString(), listener, errorListener);
         this.clazz = clazz;
-        this.headers = headers;
         this.listener = listener;
     }
 
     @Override
-    public Map<String, String> getHeaders() throws AuthFailureError {
+    public Map<String, String> getHeaders() {
         Map<String, String> params = new HashMap<>();
         params.put("Content-Type", "application/json; charset=utf-8");
         return params;
@@ -63,9 +60,7 @@ public class GsonRequest<T> extends JsonRequest<T> {
             return Response.success(
                     gson.fromJson(json, clazz),
                     HttpHeaderParser.parseCacheHeaders(response));
-        } catch (UnsupportedEncodingException e) {
-            return Response.error(new ParseError(e));
-        } catch (JsonSyntaxException e) {
+        } catch (UnsupportedEncodingException | JsonSyntaxException e) {
             return Response.error(new ParseError(e));
         }
     }

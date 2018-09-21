@@ -1,5 +1,6 @@
 package kantin.com.yemekhane.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -19,13 +20,16 @@ import kantin.com.yemekhane.activities.MenuActivity;
 import kantin.com.yemekhane.model.searchModel.SearchList;
 
 public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder> {
-    private List<SearchList> searchLists;
-    private Context context;
+    private final List<SearchList> searchLists;
+    private final Context context;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvFullName, tvClass, tvMenu, tvTime;
-        Button btnMenu;
-        Spinner spnTime;
+        final TextView tvFullName;
+        final TextView tvClass;
+        final TextView tvMenu;
+        final TextView tvTime;
+        final Button btnMenu;
+        final Spinner spnTime;
 
         private ViewHolder(View v) {
             super(v);
@@ -50,10 +54,10 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
     public PersonAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_person, parent, false);
-        PersonAdapter.ViewHolder vh = new PersonAdapter.ViewHolder(v);
-        return vh;
+        return new ViewHolder(v);
     }
 
+    @SuppressLint("RecyclerView")
     @Override
     public void onBindViewHolder(@NonNull final PersonAdapter.ViewHolder holder, final int position) {
         SearchList dp = searchLists.get(position);
@@ -72,16 +76,13 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
                         R.array.Time, android.R.layout.simple_spinner_item);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 holder.spnTime.setAdapter(adapter);
-                holder.btnMenu.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(context, MenuActivity.class);
-                        intent.putExtra("position", position);
-                        intent.putExtra("id", dp.getId());
-                        intent.putExtra("from", "normal");
-                        intent.putExtra("selectedSpinner", holder.spnTime.getSelectedItemPosition());
-                        context.startActivity(intent);
-                    }
+                holder.btnMenu.setOnClickListener(v -> {
+                    Intent intent = new Intent(context, MenuActivity.class);
+                    intent.putExtra("position", position);
+                    intent.putExtra("id", dp.getId());
+                    intent.putExtra("from", "normal");
+                    intent.putExtra("selectedSpinner", holder.spnTime.getSelectedItemPosition());
+                    context.startActivity(intent);
                 });
             } else {
                 holder.tvTime.setVisibility(View.VISIBLE);

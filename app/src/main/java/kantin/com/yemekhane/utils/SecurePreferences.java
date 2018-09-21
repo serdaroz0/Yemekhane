@@ -25,6 +25,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
  */
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Base64;
@@ -40,9 +41,10 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-public class SecurePreferences {
-    public static class SecurePreferencesException extends RuntimeException {
-        public SecurePreferencesException(Throwable e) {
+@SuppressWarnings("JavaDoc")
+class SecurePreferences {
+    static class SecurePreferencesException extends RuntimeException {
+        SecurePreferencesException(Throwable e) {
             super(e);
         }
 
@@ -70,6 +72,7 @@ public class SecurePreferences {
      *                       the plaintext value of the value which can be used to decipher the value.
      * @throws SecurePreferencesException
      */
+    @SuppressLint("GetInstance")
     public SecurePreferences(Context context, String preferenceName, String secureKey, boolean encryptKeys) throws SecurePreferencesException {
         try {
             this.writer = Cipher.getInstance(TRANSFORMATION);
@@ -81,14 +84,12 @@ public class SecurePreferences {
             this.preferences = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
 
             this.encryptKeys = encryptKeys;
-        } catch (GeneralSecurityException e) {
-            throw new SecurePreferencesException(e);
-        } catch (UnsupportedEncodingException e) {
+        } catch (GeneralSecurityException | UnsupportedEncodingException e) {
             throw new SecurePreferencesException(e);
         }
     }
 
-    protected void initCiphers(String secureKey) throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException,
+    private void initCiphers(String secureKey) throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException,
             InvalidAlgorithmParameterException {
         IvParameterSpec ivSpec = getIv();
         SecretKeySpec secretKey = getSecretKey(secureKey);
@@ -98,22 +99,21 @@ public class SecurePreferences {
         keyWriter.init(Cipher.ENCRYPT_MODE, secretKey);
     }
 
-    protected IvParameterSpec getIv() {
+    private IvParameterSpec getIv() {
         byte[] iv = new byte[writer.getBlockSize()];
         System.arraycopy("fl4&sdf44ifudsdf9876slfj98dsaddwerwofshau87fih9adsf".getBytes(), 0, iv, 0, writer.getBlockSize());
         return new IvParameterSpec(iv);
     }
 
-    protected SecretKeySpec getSecretKey(String key) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    private SecretKeySpec getSecretKey(String key) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         byte[] keyBytes = createKeyBytes(key);
         return new SecretKeySpec(keyBytes, TRANSFORMATION);
     }
 
-    protected byte[] createKeyBytes(String key) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    private byte[] createKeyBytes(String key) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance(SECRET_KEY_HASH_TRANSFORMATION);
         md.reset();
-        byte[] keyBytes = md.digest(key.getBytes(CHARSET));
-        return keyBytes;
+        return md.digest(key.getBytes(CHARSET));
     }
 
     public void put(String key, String value) {
@@ -156,18 +156,17 @@ public class SecurePreferences {
         preferences.edit().putString(key, secureValueEncoded).apply();
     }
 
-    protected String encrypt(String value, Cipher writer) throws SecurePreferencesException {
+    private String encrypt(String value, Cipher writer) throws SecurePreferencesException {
         byte[] secureValue;
         try {
             secureValue = convert(writer, value.getBytes(CHARSET));
         } catch (UnsupportedEncodingException e) {
             throw new SecurePreferencesException(e);
         }
-        String secureValueEncoded = Base64.encodeToString(secureValue, Base64.NO_WRAP);
-        return secureValueEncoded;
+        return Base64.encodeToString(secureValue, Base64.NO_WRAP);
     }
 
-    protected String decrypt(String securedEncodedValue) {
+    private String decrypt(String securedEncodedValue) {
         byte[] securedValue = Base64.decode(securedEncodedValue, Base64.NO_WRAP);
         byte[] value = convert(reader, securedValue);
         try {

@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.Objects;
+
 import kantin.com.yemekhane.R;
 import kantin.com.yemekhane.model.CodeModel;
 import kantin.com.yemekhane.utils.Services;
@@ -13,7 +15,7 @@ import kantin.com.yemekhane.utils.Util;
 
 public class MenuActivity extends AppCompatActivity {
 
-    CodeModel codeModel = new CodeModel();
+    private CodeModel codeModel = new CodeModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,26 +32,20 @@ public class MenuActivity extends AppCompatActivity {
             Bundle extras = getIntent().getExtras();
 
             if (extras != null) {
-                if (extras.getString("from").equals("normal")) {
-                    Services.getInstance().addAndDelete(this, extras.getInt("id"), buttonText, true, extras.getInt("selectedSpinner") + 1, new Services.OnFinishListener() {
-                        @Override
-                        public void onFinish(Object obj) {
-                            codeModel = (CodeModel) obj;
-                            if (codeModel.getCode() == 0) {
-                                Util.showToast(MenuActivity.this, R.string.saved);
-                            }
-
+                if (Objects.requireNonNull(extras.getString("from")).equals("normal")) {
+                    Services.getInstance().addAndDelete(this, extras.getInt("id"), buttonText, true, extras.getInt("selectedSpinner") + 1, obj -> {
+                        codeModel = (CodeModel) obj;
+                        if (codeModel.getCode() == 0) {
+                            Util.showToast(MenuActivity.this, R.string.saved);
                         }
+
                     }, true);
 
                 } else {
-                    Services.getInstance().changeMenuForMember(this, String.valueOf(extras.getInt("id")), buttonText, new Services.OnFinishListener() {
-                        @Override
-                        public void onFinish(Object obj) {
-                            CodeModel codeModel = (CodeModel) obj;
-                            if (codeModel.getCode() == 0) {
-                                Util.showToast(MenuActivity.this, R.string.changed);
-                            }
+                    Services.getInstance().changeMenuForMember(this, String.valueOf(extras.getInt("id")), buttonText, obj -> {
+                        CodeModel codeModel = (CodeModel) obj;
+                        if (codeModel.getCode() == 0) {
+                            Util.showToast(MenuActivity.this, R.string.changed);
                         }
                     }, true);
                 }
