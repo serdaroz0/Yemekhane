@@ -30,4 +30,5 @@
     <string name="empty" translatable="false">empty</string>
     <string name="changed">Değiştirildi</string>
     <string name="mail">Mail</string>
+    <string name="note">Notunuzu Buraya Giriniz</string>
 </resources>

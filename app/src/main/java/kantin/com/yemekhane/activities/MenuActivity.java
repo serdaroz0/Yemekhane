@@ -21,8 +21,6 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-
-
     }
 
     public void getText(View view) {
@@ -33,12 +31,11 @@ public class MenuActivity extends AppCompatActivity {
 
             if (extras != null) {
                 if (Objects.requireNonNull(extras.getString("from")).equals("normal")) {
-                    Services.getInstance().addAndDelete(this, extras.getInt("id"), buttonText, true, extras.getInt("selectedSpinner") + 1, obj -> {
+                    Services.getInstance().addAndDelete(this, extras.getInt("id"), buttonText, true, extras.getInt("selectedSpinner") + 1, null, obj -> {
                         codeModel = (CodeModel) obj;
                         if (codeModel.getCode() == 0) {
                             Util.showToast(MenuActivity.this, R.string.saved);
                         }
-
                     }, true);
 
                 } else {
@@ -50,18 +47,18 @@ public class MenuActivity extends AppCompatActivity {
                     }, true);
                 }
             }
-//            }
-// else {
-//                Services.getInstance().changeMenuForMember(this, String.valueOf(extras.getInt("id")), buttonText, new Services.OnFinishListener() {
-//                    @Override
-//                    public void onFinish(Object obj) {
-//                        CodeModel codeModel = (CodeModel) obj;
-//                        if (codeModel.getCode() == 0) {
-//                            Util.showToast(MenuActivity.this, R.string.changed);
-//                        }
-//                    }
-//                }, true);
-//            }
+            //            }
+            // else {
+            //                Services.getInstance().changeMenuForMember(this, String.valueOf(extras.getInt("id")), buttonText, new Services.OnFinishListener() {
+            //                    @Override
+            //                    public void onFinish(Object obj) {
+            //                        CodeModel codeModel = (CodeModel) obj;
+            //                        if (codeModel.getCode() == 0) {
+            //                            Util.showToast(MenuActivity.this, R.string.changed);
+            //                        }
+            //                    }
+            //                }, true);
+            //            }
             startActivity(new Intent(this, MainActivity.class));
         } catch (Exception ex) {
             ex.printStackTrace();

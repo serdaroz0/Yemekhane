@@ -58,7 +58,8 @@ public class Services {
             mWaitingRequestCount--;
             if (mWaitingRequestCount == 0) {
                 try {
-                    if (progressDialog != null) progressDialog.dismiss();
+                    if (progressDialog != null)
+                        progressDialog.dismiss();
                 } catch (Exception pass) {
                     //pass
                 }
@@ -78,7 +79,8 @@ public class Services {
             if (!progressDialog.getContext().getClass().equals(mContext.getClass())) {
                 progressDialog.dismiss();
                 createProgress();
-            } else progressDialog.show();
+            } else
+                progressDialog.show();
         }
         Util.startProgressAnimation(progressDialog);
     }
@@ -113,8 +115,7 @@ public class Services {
         mRequestQueue.cancelAll(TAG);
     }
 
-    public void getStudentList(Context context, String words, OnFinishListener ofl, Boolean showErrors) {
-        showProgress(context);
+    public void getStudentList(String words, OnFinishListener ofl, Boolean showErrors) {
         JSONObject jsonObject = new JSONObject();
         JSONObject jsonBody = new JSONObject();
         try {
@@ -125,8 +126,7 @@ public class Services {
             ex.printStackTrace();
         }
         try {
-            GsonRequest<SearchListModel> gsonRequest = new GsonRequest<>(Request.Method.POST,
-                    REST_SERVICE, SearchListModel.class, jsonObject, null, ofl::onFinish, showErrors ? volleyErrorListener : null);
+            GsonRequest<SearchListModel> gsonRequest = new GsonRequest<>(Request.Method.POST, REST_SERVICE, SearchListModel.class, jsonObject, null, ofl::onFinish, showErrors ? volleyErrorListener : null);
             add(gsonRequest);
 
         } catch (Exception ex) {
@@ -147,8 +147,7 @@ public class Services {
             ex.printStackTrace();
         }
         try {
-            GsonRequest<SearchListModel> gsonRequest = new GsonRequest<>(Request.Method.POST,
-                    REST_SERVICE, SearchListModel.class, jsonObject, null, ofl::onFinish, showErrors ? volleyErrorListener : null);
+            GsonRequest<SearchListModel> gsonRequest = new GsonRequest<>(Request.Method.POST, REST_SERVICE, SearchListModel.class, jsonObject, null, ofl::onFinish, showErrors ? volleyErrorListener : null);
             add(gsonRequest);
 
         } catch (Exception ex) {
@@ -157,7 +156,7 @@ public class Services {
 
     }
 
-    public void addAndDelete(Context context, int id, String menu, Boolean isSelected, int paymentMethod, OnFinishListener ofl, Boolean showErrors) {
+    public void addAndDelete(Context context, int id, String menu, Boolean isSelected, int paymentMethod, String note, OnFinishListener ofl, Boolean showErrors) {
         showProgress(context);
         JSONObject jsonObject = new JSONObject();
         JSONObject jsonBody = new JSONObject();
@@ -166,14 +165,14 @@ public class Services {
             jsonBody.put("id", id);
             jsonBody.put("menu", menu);
             jsonBody.put("isSelected", isSelected);
+            jsonBody.put("note", note);
             jsonBody.put("paymentPeriod", paymentMethod);
             jsonObject.put("params", jsonBody);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         try {
-            GsonRequest<CodeModel> gsonRequest = new GsonRequest<>(Request.Method.POST,
-                    REST_SERVICE, CodeModel.class, jsonObject, null, ofl::onFinish, showErrors ? volleyErrorListener : null);
+            GsonRequest<CodeModel> gsonRequest = new GsonRequest<>(Request.Method.POST, REST_SERVICE, CodeModel.class, jsonObject, null, ofl::onFinish, showErrors ? volleyErrorListener : null);
             add(gsonRequest);
 
         } catch (Exception ex) {
@@ -194,8 +193,7 @@ public class Services {
             ex.printStackTrace();
         }
         try {
-            GsonRequest<CodeModel> gsonRequest = new GsonRequest<>(Request.Method.POST,
-                    REST_SERVICE, CodeModel.class, jsonObject, null, ofl::onFinish, showErrors ? volleyErrorListener : null);
+            GsonRequest<CodeModel> gsonRequest = new GsonRequest<>(Request.Method.POST, REST_SERVICE, CodeModel.class, jsonObject, null, ofl::onFinish, showErrors ? volleyErrorListener : null);
             add(gsonRequest);
 
         } catch (Exception ex) {
@@ -217,8 +215,29 @@ public class Services {
             ex.printStackTrace();
         }
         try {
-            GsonRequest<CodeModel> gsonRequest = new GsonRequest<>(Request.Method.POST,
-                    REST_SERVICE, CodeModel.class, jsonObject, null, ofl::onFinish, showErrors ? volleyErrorListener : null);
+            GsonRequest<CodeModel> gsonRequest = new GsonRequest<>(Request.Method.POST, REST_SERVICE, CodeModel.class, jsonObject, null, ofl::onFinish, showErrors ? volleyErrorListener : null);
+            add(gsonRequest);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    public void addNote(Context context, int id, String note, OnFinishListener ofl, Boolean showErrors) {
+        showProgress(context);
+        JSONObject jsonObject = new JSONObject();
+        JSONObject jsonBody = new JSONObject();
+        try {
+            jsonObject.put("action", "updateStudentNote");
+            jsonBody.put("id", id);
+            jsonBody.put("note", note);
+            jsonObject.put("params", jsonBody);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        try {
+            GsonRequest<CodeModel> gsonRequest = new GsonRequest<>(Request.Method.POST, REST_SERVICE, CodeModel.class, jsonObject, null, ofl::onFinish, showErrors ? volleyErrorListener : null);
             add(gsonRequest);
 
         } catch (Exception ex) {

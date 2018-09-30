@@ -3,13 +3,17 @@ package kantin.com.yemekhane.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -27,12 +31,14 @@ public class SavedPersonAdapter extends RecyclerView.Adapter<SavedPersonAdapter.
     private final Context context;
     private CodeModel codeModel = new CodeModel();
 
+
     static class ViewHolder extends RecyclerView.ViewHolder {
         final TextView tvClassSaved;
         final TextView tvFullNameSaved;
         final TextView tvTimeSaved;
         final TextView tvMenuSaved;
         final ImageView ivDelete;
+        final ImageView ivAddShow;
         final Button btnChangeMenu;
         final CardView cvSaved;
 
@@ -40,6 +46,7 @@ public class SavedPersonAdapter extends RecyclerView.Adapter<SavedPersonAdapter.
             super(v);
             this.tvClassSaved = v.findViewById(R.id.tvClassSaved);
             this.tvFullNameSaved = v.findViewById(R.id.tvFullNameSaved);
+            this.ivAddShow = v.findViewById(R.id.ivAddShow);
             this.cvSaved = v.findViewById(R.id.cvSaved);
             this.tvTimeSaved = v.findViewById(R.id.tvTimeSaved);
             this.tvMenuSaved = v.findViewById(R.id.tvMenuSaved);
@@ -57,8 +64,7 @@ public class SavedPersonAdapter extends RecyclerView.Adapter<SavedPersonAdapter.
     @NonNull
     @Override
     public SavedPersonAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recycler_saved_person, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_saved_person, parent, false);
         return new ViewHolder(v);
     }
 
@@ -93,28 +99,78 @@ public class SavedPersonAdapter extends RecyclerView.Adapter<SavedPersonAdapter.
                 intent.putExtra("from", "saved");
                 context.startActivity(intent);
             });
-            holder.ivDelete.setOnClickListener(v ->
 
-                    Services.getInstance().addAndDelete(context, dp.getId(), "Menü", false, 1, obj -> {
-                        codeModel = (CodeModel) obj;
-                        if (codeModel.getCode() == 0) {
-                            savedPersonModels.remove(dp);
-                            Util.showToast(context, R.string.delete);
-                            notifyDataSetChanged();
-                        } else {
-                            Util.showToast(context, R.string.data_not_found);
-                        }
+            holder.ivDelete.setOnClickListener(v -> Services.getInstance().addAndDelete(context, dp.getId(), "Menü", false, 1, null, obj -> {
+                codeModel = (CodeModel) obj;
+                if (codeModel.getCode() == 0) {
+                    removeItem(position);
+                    Util.showToast(context, R.string.delete);
+                } else {
+                    Util.showToast(context, R.string.data_not_found);
+                }
 
-                    }, true));
+            }, true));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        if (dp.getNote() == null) {
+            holder.ivAddShow.setImageResource(R.drawable.ic_add_file);
+            holder.ivAddShow.setOnClickListener(v -> {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                final EditText input = new EditText(context);
+                input.setHint(R.string.note);
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                lp.setMargins(8, 8, 8, 8);
+                input.setLayoutParams(lp);
+                builder.setView(input); // unc
+                builder.setTitle("Not Oluştur").setCancelable(false).setPositiveButton("Oluştur", (dialog, id) -> {
+                    Services.getInstance().addNote(context, dp.getId(), input.getText().toString(), obj -> {
+                        CodeModel codeModel = (CodeModel) obj;
+                        if (codeModel.getCode() == 0) {
+                            Util.showToast(context, R.string.saved);
+                            dp.setNote(input.getText().toString());
+                            notifyItemChanged(position);
+                        }
+                    }, true);
+                }).setNegativeButton("İptal", (dialog, which) -> {
+                });
+
+                AlertDialog alert = builder.create();
+                alert.show();
+            });
+        } else {
+            holder.ivAddShow.setImageResource(R.drawable.ic_note);
+            holder.ivAddShow.setOnClickListener(v -> {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                final EditText input = new EditText(context);
+                input.setHint(R.string.note);
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                input.setPadding(10, 10, 10, 10);
+                lp.setMargins(8, 8, 8, 8);
+                input.setLayoutParams(lp);
+                builder.setView(input); // unc
+                input.setText(dp.getNote());
+                builder.setTitle("Notunuz").setCancelable(false).setPositiveButton("Tamam", (dialog, id) -> {
+
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+            });
+        }
+
+    }
+
+    private void removeItem(int position) {
+        this.savedPersonModels.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, getItemCount() - position);
     }
 
     @Override
     public int getItemCount() {
         return (savedPersonModels == null) ? 0 : savedPersonModels.size();
-
     }
 }
 

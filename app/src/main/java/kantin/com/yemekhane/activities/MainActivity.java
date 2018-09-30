@@ -9,6 +9,7 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -112,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
         Button b = (Button) view;
         String buttonText = b.getText().toString();
         SecurePrefHelper.setPrefString(this, "numberText", buttonText);
-        mRecyclerView.setAdapter(mAdapter);
         numbers.setVisibility(View.GONE);
         words.setVisibility(View.VISIBLE);
     }
@@ -147,17 +147,31 @@ public class MainActivity extends AppCompatActivity {
 
     public void sendMail(View view) {
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-        Calendar c = Calendar.getInstance();
-        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-        String[] days = getResources().getStringArray(R.array.days);
-        StringBuilder mailFormat = new StringBuilder(days[dayOfWeek - 1]);
-
+        StringBuilder mailFormat = new StringBuilder();
+        Log.d("onFinish: ", String.valueOf(savedSearchListModels.getData().size()));
         Collections.sort(savedSearchLists, (o1, o2) -> o1.getSchoolNumber().compareTo(o2.getSchoolNumber()));
         emailIntent.setType("message/rfc822");
         emailIntent.setData(Uri.parse("mailto:"));
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
         for (int i = 0; i < savedSearchLists.size(); i++) {
-            mailFormat.append(savedSearchLists.get(i).getSchoolNumber()).append(" ").append(savedSearchLists.get(i).getFullName()).append(" ").append(savedSearchLists.get(i).getMenu()).append("\n");
+            try {
+                if (i > 0) {
+                    if (!savedSearchLists.get(i).getSchoolNumber().equals(savedSearchLists.get(i - 1).getSchoolNumber())) {
+                        mailFormat.append("\n\n").append(savedSearchLists.get(i).getSchoolNumber()).append(" ").append(savedSearchLists.get(i).getFullName()).append(" ").append(savedSearchLists.get(i).getMenu()).append(" ").append(savedSearchLists.get(i).getNote());
+                        Log.d("onFinish1: ", String.valueOf(savedSearchListModels.getData().get(i).getSchoolNumber()));
+                        Log.d("onFinish2: ", String.valueOf(savedSearchListModels.getData().get(i - 1).getSchoolNumber()));
+
+                    } else {
+                        mailFormat.append("\n").append(savedSearchLists.get(i).getSchoolNumber()).append(" ").append(savedSearchLists.get(i).getFullName()).append(" ").append(savedSearchLists.get(i).getMenu()).append(" ").append(savedSearchLists.get(i).getNote());
+                        Log.d("onFinish1: ", String.valueOf(savedSearchListModels.getData().get(i).getSchoolNumber()));
+                        Log.d("onFinish2: ", String.valueOf(savedSearchListModels.getData().get(i - 1).getSchoolNumber()));
+                    }
+                } else {
+                    mailFormat = new StringBuilder("\n" + savedSearchLists.get(i).getSchoolNumber() + (" ") + savedSearchLists.get(i).getFullName() + (" ") + savedSearchLists.get(i).getMenu() + (" ") + savedSearchLists.get(i).getNote());
+                }
+            } catch (Exception ex) {
+                //pass
+            }
         }
         emailIntent.putExtra(Intent.EXTRA_TEXT, tvDate.getText() + "\n" + mailFormat);
         startActivity(Intent.createChooser(emailIntent, "Mail Gönder"));
@@ -176,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getQuery(String words) {
-        Services.getInstance().getStudentList(MainActivity.this, words, obj -> {
+        Services.getInstance().getStudentList(words, obj -> {
             try {
                 setNormalListAdapter();
                 searchListModels = (SearchListModel) obj;
@@ -226,8 +240,7 @@ public class MainActivity extends AppCompatActivity {
             }
             mAdapterSaved = new SavedPersonAdapter(savedSearchLists, MainActivity.this);
             recyclerView.setAdapter(mAdapterSaved);
-//                Log.d("onFinish: ", String.valueOf(savedSearchListModels.getData().size()));
+            //                Log.d("onFinish: ", String.valueOf(savedSearchListModels.getData().size()));
         }, true);
     }
-
 }

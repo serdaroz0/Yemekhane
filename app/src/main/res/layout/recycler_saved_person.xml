@@ -33,7 +33,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
-                android:gravity="center|start"
+                android:gravity="center"
                 android:paddingEnd="0dp"
                 android:paddingStart="10dp"
                 android:textColor="@color/black" />
@@ -55,12 +55,21 @@
                 android:gravity="center" />
 
             <Button
-                android:textSize="@dimen/font_size_smx"
                 android:id="@+id/btnChangeMenu"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
-                android:gravity="center" />
+                android:gravity="center"
+                android:textSize="@dimen/font_size_smx" />
+
+            <ImageView
+                android:id="@+id/ivAddShow"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="0.8"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_add_file" />
 
             <ImageView
                 android:id="@+id/ivDelete"

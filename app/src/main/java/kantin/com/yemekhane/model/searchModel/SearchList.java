@@ -26,7 +26,18 @@ public class SearchList {
     @SerializedName("paymentFinishdate")
     @Expose
     private String paymentFinishdate;
+    @SerializedName("note")
+    @Expose
+    private String note;
 
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
 
     public String getPaymentFinishdate() {
         return paymentFinishdate;
