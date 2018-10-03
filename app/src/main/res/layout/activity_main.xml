@@ -252,22 +252,22 @@
         <Button
             style="@style/ClassesButton"
             android:onClick="chooseWords"
+            android:text="i" />
+
+        <Button
+            style="@style/ClassesButton"
+            android:onClick="chooseWords"
+            android:text="ı" />
+
+        <Button
+            style="@style/ClassesButton"
+            android:onClick="chooseWords"
             android:text="j" />
 
         <Button
             style="@style/ClassesButton"
             android:onClick="chooseWords"
-            android:text="A" />
-
-        <Button
-            style="@style/ClassesButton"
-            android:onClick="chooseWords"
             android:text="k" />
-
-        <Button
-            style="@style/ClassesButton"
-            android:onClick="chooseWords"
-            android:text="l" />
 
 
     </LinearLayout>

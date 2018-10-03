@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
@@ -22,6 +23,7 @@ import kantin.com.yemekhane.R;
 import kantin.com.yemekhane.activities.MenuActivity;
 import kantin.com.yemekhane.model.CodeModel;
 import kantin.com.yemekhane.model.searchModel.SearchList;
+import kantin.com.yemekhane.utils.MyDiffCallback;
 import kantin.com.yemekhane.utils.Services;
 import kantin.com.yemekhane.utils.Util;
 
@@ -99,78 +101,81 @@ public class SavedPersonAdapter extends RecyclerView.Adapter<SavedPersonAdapter.
                 intent.putExtra("from", "saved");
                 context.startActivity(intent);
             });
+            holder.ivDelete.setOnClickListener(v -> {
+                savedPersonModels.remove(dp);
+                Services.getInstance().addAndDelete(context, dp.getId(), "Menü", false, 1, null, obj -> {
+                    codeModel = (CodeModel) obj;
+                    if (codeModel.getCode() == 0) {
+                        notifyItemRemoved(position);
+                        //                        notifyItemChanged(position);
+                        notifyItemRangeChanged(position, savedPersonModels.size());
+                        Util.showToast(context, R.string.delete);
+                    } else {
+                        Util.showToast(context, R.string.data_not_found);
+                    }
 
-            holder.ivDelete.setOnClickListener(v -> Services.getInstance().addAndDelete(context, dp.getId(), "Menü", false, 1, null, obj -> {
-                codeModel = (CodeModel) obj;
-                if (codeModel.getCode() == 0) {
-                    removeItem(position);
-                    Util.showToast(context, R.string.delete);
-                } else {
-                    Util.showToast(context, R.string.data_not_found);
-                }
-
-            }, true));
+                }, true);
+            });
+            //            holder.ivDelete.setOnClickListener(v -> Services.getInstance().addAndDelete(context, dp.getId(), "Menü", false, 1, null, obj -> {
+            //                codeModel = (CodeModel) obj;
+            //                if (codeModel.getCode() == 0) {
+            //                    updateList(savedPersonModels);
+            //                    Util.showToast(context, R.string.delete);
+            //                } else {
+            //                    Util.showToast(context, R.string.data_not_found);
+            //                }
+            //
+            //            }, true));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        if (dp.getNote() == null) {
-            holder.ivAddShow.setImageResource(R.drawable.ic_add_file);
-            holder.ivAddShow.setOnClickListener(v -> {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                final EditText input = new EditText(context);
-                input.setHint(R.string.note);
-                input.setInputType(InputType.TYPE_CLASS_TEXT);
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-                lp.setMargins(8, 8, 8, 8);
-                input.setLayoutParams(lp);
-                builder.setView(input); // unc
-                builder.setTitle("Not Oluştur").setCancelable(false).setPositiveButton("Oluştur", (dialog, id) -> {
-                    Services.getInstance().addNote(context, dp.getId(), input.getText().toString(), obj -> {
-                        CodeModel codeModel = (CodeModel) obj;
-                        if (codeModel.getCode() == 0) {
-                            Util.showToast(context, R.string.saved);
-                            dp.setNote(input.getText().toString());
-                            notifyItemChanged(position);
-                        }
-                    }, true);
-                }).setNegativeButton("İptal", (dialog, which) -> {
-                });
-
-                AlertDialog alert = builder.create();
-                alert.show();
-            });
-        } else {
+        final EditText input = new EditText(context);
+        if (dp.getNote() != null) {
+            input.setText(dp.getNote());
             holder.ivAddShow.setImageResource(R.drawable.ic_note);
-            holder.ivAddShow.setOnClickListener(v -> {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                final EditText input = new EditText(context);
-                input.setHint(R.string.note);
-                input.setInputType(InputType.TYPE_CLASS_TEXT);
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-                input.setPadding(10, 10, 10, 10);
-                lp.setMargins(8, 8, 8, 8);
-                input.setLayoutParams(lp);
-                builder.setView(input); // unc
-                input.setText(dp.getNote());
-                builder.setTitle("Notunuz").setCancelable(false).setPositiveButton("Tamam", (dialog, id) -> {
-
-                });
-                AlertDialog alert = builder.create();
-                alert.show();
-            });
+        } else {
+            input.setHint(R.string.note);
+            holder.ivAddShow.setImageResource(R.drawable.ic_add_file);
         }
+        holder.ivAddShow.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            input.setInputType(InputType.TYPE_CLASS_TEXT);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+            lp.setMargins(12, 12, 12, 12);
+            input.setLayoutParams(lp);
+            if (input.getParent() != null) {
+                ((ViewGroup) input.getParent()).removeView(input); // <- fix
+            }
+            builder.setView(input); // unc
+            builder.setTitle("Not Oluştur").setCancelable(false).setPositiveButton("Oluştur", (dialog, id) -> {
+                Services.getInstance().addNote(context, dp.getId(), input.getText().toString(), obj -> {
+                    CodeModel codeModel = (CodeModel) obj;
+                    if (codeModel.getCode() == 0) {
+                        Util.showToast(context, R.string.saved);
+                        dp.setNote(input.getText().toString());
+                        notifyDataSetChanged();
+                    }
+                }, true);
+            }).setNegativeButton("İptal", (dialog, which) -> {
+            });
 
+            AlertDialog alert = builder.create();
+            alert.show();
+        });
     }
 
-    private void removeItem(int position) {
-        this.savedPersonModels.remove(position);
-        notifyItemRemoved(position);
-        notifyItemRangeChanged(position, getItemCount() - position);
-    }
 
     @Override
     public int getItemCount() {
         return (savedPersonModels == null) ? 0 : savedPersonModels.size();
+    }
+
+    private void updateList(List<SearchList> newList) {
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new MyDiffCallback(this.savedPersonModels, newList));
+        savedPersonModels.clear();
+        savedPersonModels.addAll(newList);
+        diffResult.dispatchUpdatesTo(this);
+
     }
 }
 
