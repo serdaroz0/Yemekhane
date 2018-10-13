@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_main"
     android:orientation="vertical"
     tools:context=".activities.MainActivity">
 
@@ -118,7 +119,10 @@
 
         </LinearLayout>
 
-        <View style="@style/horizontalSep" />
+        <View
+            style="@style/horizontalSep"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -335,6 +339,7 @@
         android:layout_height="0dp"
         android:layout_weight="0.2"
         android:orientation="horizontal"
+        android:paddingStart="2dp"
         android:weightSum="5">
 
         <Button

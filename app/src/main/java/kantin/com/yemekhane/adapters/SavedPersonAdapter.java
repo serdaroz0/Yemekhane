@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
@@ -23,7 +22,6 @@ import kantin.com.yemekhane.R;
 import kantin.com.yemekhane.activities.MenuActivity;
 import kantin.com.yemekhane.model.CodeModel;
 import kantin.com.yemekhane.model.searchModel.SearchList;
-import kantin.com.yemekhane.utils.MyDiffCallback;
 import kantin.com.yemekhane.utils.Services;
 import kantin.com.yemekhane.utils.Util;
 
@@ -81,18 +79,26 @@ public class SavedPersonAdapter extends RecyclerView.Adapter<SavedPersonAdapter.
             holder.tvTimeSaved.setText(mTestArray[dp.getPaymentPeriod() - 1]);
             switch (dp.getPaymentPeriod()) {
                 case 1:
+                    holder.tvMenuSaved.setVisibility(View.VISIBLE);
                     holder.tvMenuSaved.setText(dp.getMenu());
+                    holder.cvSaved.setCardBackgroundColor(context.getResources().getColor(R.color.white));
                     holder.btnChangeMenu.setVisibility(View.GONE);
+                    holder.tvTimeSaved.setTextColor(context.getResources().getColor(R.color.black));
                     break;
                 case 2:
                     holder.cvSaved.setCardBackgroundColor(context.getResources().getColor(R.color.gray_dark_light));
+                    holder.btnChangeMenu.setVisibility(View.VISIBLE);
                     holder.btnChangeMenu.setText(dp.getMenu());
                     holder.tvMenuSaved.setVisibility(View.GONE);
+                    holder.tvTimeSaved.setTextColor(context.getResources().getColor(R.color.blue));
+
                     break;
                 case 3:
                     holder.cvSaved.setCardBackgroundColor(context.getResources().getColor(R.color.gray));
+                    holder.btnChangeMenu.setVisibility(View.VISIBLE);
                     holder.btnChangeMenu.setText(dp.getMenu());
                     holder.tvMenuSaved.setVisibility(View.GONE);
+                    holder.tvTimeSaved.setTextColor(context.getResources().getColor(R.color.dont_know));
                     break;
             }
             holder.btnChangeMenu.setOnClickListener(v -> {
@@ -101,67 +107,57 @@ public class SavedPersonAdapter extends RecyclerView.Adapter<SavedPersonAdapter.
                 intent.putExtra("from", "saved");
                 context.startActivity(intent);
             });
-            holder.ivDelete.setOnClickListener(v -> {
-                savedPersonModels.remove(dp);
-                Services.getInstance().addAndDelete(context, dp.getId(), "Menü", false, 1, null, obj -> {
-                    codeModel = (CodeModel) obj;
-                    if (codeModel.getCode() == 0) {
+            holder.ivDelete.setOnClickListener(v -> Services.getInstance().addAndDelete(context, dp.getId(), "Menü", false, 1, "", obj -> {
+                codeModel = (CodeModel) obj;
+                if (codeModel.getCode() == 0) {
+                    try {
                         notifyItemRemoved(position);
-                        //                        notifyItemChanged(position);
                         notifyItemRangeChanged(position, savedPersonModels.size());
+                        savedPersonModels.remove(position);
                         Util.showToast(context, R.string.delete);
-                    } else {
-                        Util.showToast(context, R.string.data_not_found);
+                    } catch (Exception ex) {
+                        //pass
                     }
+                } else {
+                    Util.showToast(context, R.string.data_not_found);
+                }
 
-                }, true);
-            });
-            //            holder.ivDelete.setOnClickListener(v -> Services.getInstance().addAndDelete(context, dp.getId(), "Menü", false, 1, null, obj -> {
-            //                codeModel = (CodeModel) obj;
-            //                if (codeModel.getCode() == 0) {
-            //                    updateList(savedPersonModels);
-            //                    Util.showToast(context, R.string.delete);
-            //                } else {
-            //                    Util.showToast(context, R.string.data_not_found);
-            //                }
-            //
-            //            }, true));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        final EditText input = new EditText(context);
-        if (dp.getNote() != null) {
-            input.setText(dp.getNote());
-            holder.ivAddShow.setImageResource(R.drawable.ic_note);
-        } else {
-            input.setHint(R.string.note);
-            holder.ivAddShow.setImageResource(R.drawable.ic_add_file);
-        }
-        holder.ivAddShow.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            input.setInputType(InputType.TYPE_CLASS_TEXT);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-            lp.setMargins(12, 12, 12, 12);
-            input.setLayoutParams(lp);
-            if (input.getParent() != null) {
-                ((ViewGroup) input.getParent()).removeView(input); // <- fix
+            }, true));
+
+            final EditText input = new EditText(context);
+            if (dp.getNote().length() > 0) {
+                input.setText(dp.getNote());
+                holder.ivAddShow.setImageResource(R.drawable.ic_notepad_load);
+            } else {
+                input.setHint(R.string.note);
+                holder.ivAddShow.setImageResource(R.drawable.ic_notepad);
             }
-            builder.setView(input); // unc
-            builder.setTitle("Not Oluştur").setCancelable(false).setPositiveButton("Oluştur", (dialog, id) -> {
-                Services.getInstance().addNote(context, dp.getId(), input.getText().toString(), obj -> {
+            holder.ivAddShow.setOnClickListener(v -> {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                lp.setMargins(12, 12, 12, 12);
+//                input.setHeight(300);
+                input.setLayoutParams(lp);
+                if (input.getParent() != null) {
+                    ((ViewGroup) input.getParent()).removeView(input); // <- fix
+                }
+                builder.setView(input); // unc
+                builder.setTitle(R.string.create_note).setCancelable(false).setPositiveButton(R.string.create, (dialog, id) -> Services.getInstance().addNote(context, dp.getId(), input.getText().toString(), obj -> {
                     CodeModel codeModel = (CodeModel) obj;
                     if (codeModel.getCode() == 0) {
                         Util.showToast(context, R.string.saved);
                         dp.setNote(input.getText().toString());
                         notifyDataSetChanged();
                     }
-                }, true);
-            }).setNegativeButton("İptal", (dialog, which) -> {
+                }, true)).setNegativeButton(R.string.cancel, (dialog, which) -> {
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
             });
-
-            AlertDialog alert = builder.create();
-            alert.show();
-        });
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
 
@@ -170,12 +166,5 @@ public class SavedPersonAdapter extends RecyclerView.Adapter<SavedPersonAdapter.
         return (savedPersonModels == null) ? 0 : savedPersonModels.size();
     }
 
-    private void updateList(List<SearchList> newList) {
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new MyDiffCallback(this.savedPersonModels, newList));
-        savedPersonModels.clear();
-        savedPersonModels.addAll(newList);
-        diffResult.dispatchUpdatesTo(this);
-
-    }
 }
 

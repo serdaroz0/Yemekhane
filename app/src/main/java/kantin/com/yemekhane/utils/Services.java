@@ -157,7 +157,6 @@ public class Services {
     }
 
     public void addAndDelete(Context context, int id, String menu, Boolean isSelected, int paymentMethod, String note, OnFinishListener ofl, Boolean showErrors) {
-        showProgress(context);
         JSONObject jsonObject = new JSONObject();
         JSONObject jsonBody = new JSONObject();
         try {

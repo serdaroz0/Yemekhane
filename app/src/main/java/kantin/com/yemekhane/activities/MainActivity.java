@@ -2,7 +2,6 @@ package kantin.com.yemekhane.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -34,6 +33,7 @@ import kantin.com.yemekhane.model.searchModel.SearchList;
 import kantin.com.yemekhane.model.searchModel.SearchListModel;
 import kantin.com.yemekhane.utils.SecurePrefHelper;
 import kantin.com.yemekhane.utils.Services;
+import kantin.com.yemekhane.utils.Util;
 
 public class MainActivity extends AppCompatActivity {
     private SearchListModel searchListModels = new SearchListModel();
@@ -61,8 +61,6 @@ public class MainActivity extends AppCompatActivity {
         words = findViewById(R.id.words);
         tvDate = findViewById(R.id.tvDate);
         llWordsChildSchool = findViewById(R.id.llWordsChildSchool);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER_LANDSCAPE);
-        setSavedListAdapter();
         date();
         getSavedListAndDeleteAll();
         svSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -195,7 +193,6 @@ public class MainActivity extends AppCompatActivity {
                 setNormalListAdapter();
                 searchListModels = (SearchListModel) obj;
                 searchLists = searchListModels.getData();
-
                 for (int i = 0; i < searchLists.size(); i++) {
                     if (searchLists.get(i).getMenu().equals("")) {
                         searchLists.get(i).setMenu("Menü");
@@ -211,36 +208,35 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getSavedListAndDeleteAll() {
+        setSavedListAdapter();
+
+        StringBuilder idList = new StringBuilder();
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String currentDateandTime = sdf.format(new Date());
+        for (int i = 0; i < savedSearchLists.size(); i++) {
+            if (savedSearchLists.get(i).getPaymentFinishdate().replace("T00:00:00.000Z", "").compareTo(currentDateandTime) <= 0) {
+                idList.append(savedSearchLists.get(i).getId()).append(",");
+                Log.d("getSavedListAndDelete: ", idList.toString());
+            }
+        }
+        if (!idList.toString().equals("")) {
+            StringBuilder b = new StringBuilder(idList.toString());
+            b.deleteCharAt(idList.lastIndexOf(","));
+            idList = new StringBuilder(b.toString());
+            Services.getInstance().deleteAll(MainActivity.this, idList.toString(), obj12 -> {
+                CodeModel codeModel = (CodeModel) obj12;
+                if (codeModel.getCode() == 0) {
+                    Util.showToast(this, R.string.deleted_success);
+                }
+            }, true);
+        }
+
         Services.getInstance().getSavedStudentList(this, obj -> {
             savedSearchListModels = (SearchListModel) obj;
             savedSearchLists = savedSearchListModels.getData();
-            StringBuilder idList = new StringBuilder();
-            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            String currentDateandTime = sdf.format(new Date());
-            for (int i = 0; i < savedSearchLists.size(); i++) {
-                if (savedSearchLists.get(i).getPaymentFinishdate().replace("T00:00:00.000Z", "").compareTo(currentDateandTime) <= 0) {
-                    idList.append(savedSearchLists.get(i).getId()).append(",");
-                }
-            }
-            if (!idList.toString().equals("")) {
-                StringBuilder b = new StringBuilder(idList.toString());
-                b.deleteCharAt(idList.lastIndexOf(","));
-                idList = new StringBuilder(b.toString());
-                Services.getInstance().deleteAll(MainActivity.this, idList.toString(), obj12 -> {
-                    CodeModel codeModel = (CodeModel) obj12;
-                    if (codeModel.getCode() == 0) {
-                        Services.getInstance().getSavedStudentList(MainActivity.this, obj1 -> {
-                            savedSearchListModels = (SearchListModel) obj1;
-                            savedSearchLists = savedSearchListModels.getData();
-                            recyclerView.setAdapter(null);
-                            recyclerView.setAdapter(mAdapter);
-                        }, true);
-                    }
-                }, true);
-            }
+            Collections.sort(savedSearchLists, (o1, o2) -> o2.getMenuPicktime().compareTo(o1.getMenuPicktime()));
             mAdapterSaved = new SavedPersonAdapter(savedSearchLists, MainActivity.this);
             recyclerView.setAdapter(mAdapterSaved);
-            //                Log.d("onFinish: ", String.valueOf(savedSearchListModels.getData().size()));
         }, true);
     }
 }

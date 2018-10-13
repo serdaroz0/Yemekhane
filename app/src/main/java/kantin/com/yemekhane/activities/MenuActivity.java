@@ -14,7 +14,6 @@ import kantin.com.yemekhane.utils.Services;
 import kantin.com.yemekhane.utils.Util;
 
 public class MenuActivity extends AppCompatActivity {
-
     private CodeModel codeModel = new CodeModel();
 
     @Override
@@ -28,10 +27,9 @@ public class MenuActivity extends AppCompatActivity {
             Button b = (Button) view;
             String buttonText = b.getText().toString();
             Bundle extras = getIntent().getExtras();
-
             if (extras != null) {
                 if (Objects.requireNonNull(extras.getString("from")).equals("normal")) {
-                    Services.getInstance().addAndDelete(this, extras.getInt("id"), buttonText, true, extras.getInt("selectedSpinner") + 1, null, obj -> {
+                    Services.getInstance().addAndDelete(this, extras.getInt("id"), buttonText, true, extras.getInt("selectedSpinner") + 1, "", obj -> {
                         codeModel = (CodeModel) obj;
                         if (codeModel.getCode() == 0) {
                             Util.showToast(MenuActivity.this, R.string.saved);
@@ -60,6 +58,7 @@ public class MenuActivity extends AppCompatActivity {
             //                }, true);
             //            }
             startActivity(new Intent(this, MainActivity.class));
+            finish();
         } catch (Exception ex) {
             ex.printStackTrace();
         }

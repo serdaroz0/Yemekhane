@@ -29,7 +29,17 @@ public class SearchList {
     @SerializedName("note")
     @Expose
     private String note;
+    @SerializedName("menuPicktime")
+    @Expose
+    private String menuPicktime;
 
+    public String getMenuPicktime() {
+        return menuPicktime;
+    }
+
+    public void setMenuPicktime(String menuPicktime) {
+        this.menuPicktime = menuPicktime;
+    }
 
     public String getNote() {
         return note;

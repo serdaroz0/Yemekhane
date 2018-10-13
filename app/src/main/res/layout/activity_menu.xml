@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient"
     android:orientation="vertical"
     tools:context=".activities.MenuActivity">
 
@@ -10,19 +11,19 @@
 
         <Button
             style="@style/btnMenu"
-            android:text="Hamburger" />
+            android:text="@string/hamburger" />
 
         <Button
             style="@style/btnMenu"
-            android:text="Pizza" />
+            android:text="@string/pizza" />
 
         <Button
             style="@style/btnMenu"
-            android:text="Köfte Ekmek" />
+            android:text="@string/kofte_ekmek" />
 
         <Button
             style="@style/btnMenu"
-            android:text="Mantı" />
+            android:text="@string/mant" />
 
 
     </LinearLayout>
@@ -32,19 +33,19 @@
 
         <Button
             style="@style/btnMenu"
-            android:text="Döner Ekmek" />
+            android:text="@string/doner_ekmek" />
 
         <Button
             style="@style/btnMenu"
-            android:text="Pide" />
+            android:text="@string/pide" />
 
         <Button
             style="@style/btnMenu"
-            android:text="Tavuklu Pilav" />
+            android:text="@string/tavuklu_pilav" />
 
         <Button
             style="@style/btnMenu"
-            android:text="Çorba" />
+            android:text="@string/corba" />
 
     </LinearLayout>
 
@@ -53,15 +54,15 @@
 
         <Button
             style="@style/btnMenu"
-            android:text="Patates - Köfte" />
+            android:text="@string/patates_kofte" />
 
         <Button
             style="@style/btnMenu"
-            android:text="Sade Makarna" />
+            android:text="@string/sade_makarna" />
 
         <Button
             style="@style/btnMenu"
-            android:text="Köfte-Makarna" />
+            android:text="@string/kofte_makarna" />
 
 
     </LinearLayout>
@@ -70,15 +71,15 @@
 
         <Button
             style="@style/btnMenu"
-            android:text="Köfte-Pilav" />
+            android:text="@string/kofte_pilav" />
 
         <Button
             style="@style/btnMenu"
-            android:text="Gözleme" />
+            android:text="@string/gozleme" />
 
         <Button
             style="@style/btnMenu"
-            android:text="Nugget-Pilav" />
+            android:text="@string/nugget_pilav" />
     </LinearLayout>
 
 
