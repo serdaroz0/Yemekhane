@@ -49,4 +49,20 @@
     <string name="kofte_pilav">Köfte-Pilav</string>
     <string name="gozleme">Gözleme</string>
     <string name="nugget_pilav">Nugget-Pilav</string>
+    <string name="clas">Sınıf</string>
+    <string name="name_surname">İsim-Soyisim</string>
+    <string name="time">Süre</string>
+    <string name="menu">Menü</string>
+    <string name="a">a</string>
+    <string name="b">b</string>
+    <string name="c">c</string>
+    <string name="d">d</string>
+    <string name="e">e</string>
+    <string name="f">f</string>
+    <string name="g">g</string>
+    <string name="h">h</string>
+    <string name="i">i</string>
+    <string name="ı">ı</string>
+    <string name="j">j</string>
+    <string name="k">k</string>
 </resources>

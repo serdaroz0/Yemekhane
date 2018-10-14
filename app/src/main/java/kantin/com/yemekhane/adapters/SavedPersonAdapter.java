@@ -90,7 +90,7 @@ public class SavedPersonAdapter extends RecyclerView.Adapter<SavedPersonAdapter.
                     holder.btnChangeMenu.setVisibility(View.VISIBLE);
                     holder.btnChangeMenu.setText(dp.getMenu());
                     holder.tvMenuSaved.setVisibility(View.GONE);
-                    holder.tvTimeSaved.setTextColor(context.getResources().getColor(R.color.blue));
+                    holder.tvTimeSaved.setTextColor(context.getResources().getColor(R.color.blue_tone));
 
                     break;
                 case 3:
@@ -107,7 +107,7 @@ public class SavedPersonAdapter extends RecyclerView.Adapter<SavedPersonAdapter.
                 intent.putExtra("from", "saved");
                 context.startActivity(intent);
             });
-            holder.ivDelete.setOnClickListener(v -> Services.getInstance().addAndDelete(context, dp.getId(), "Menü", false, 1, "", obj -> {
+            holder.ivDelete.setOnClickListener(v -> Services.getInstance().addAndDelete(dp.getId(), "Menü", false, 1, "", obj -> {
                 codeModel = (CodeModel) obj;
                 if (codeModel.getCode() == 0) {
                     try {
@@ -130,14 +130,14 @@ public class SavedPersonAdapter extends RecyclerView.Adapter<SavedPersonAdapter.
                 holder.ivAddShow.setImageResource(R.drawable.ic_notepad_load);
             } else {
                 input.setHint(R.string.note);
-                holder.ivAddShow.setImageResource(R.drawable.ic_notepad);
+                holder.ivAddShow.setImageResource(R.drawable.ic_notepad_no);
             }
             holder.ivAddShow.setOnClickListener(v -> {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 input.setInputType(InputType.TYPE_CLASS_TEXT);
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
                 lp.setMargins(12, 12, 12, 12);
-//                input.setHeight(300);
+                //                input.setHeight(300);
                 input.setLayoutParams(lp);
                 if (input.getParent() != null) {
                     ((ViewGroup) input.getParent()).removeView(input); // <- fix

@@ -7,6 +7,32 @@
     android:orientation="vertical"
     tools:context=".activities.MenuActivity">
 
+    <Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/black">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="@font/toolbar_font"
+                android:gravity="center"
+                android:text="Yemekhane"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_7x"
+                tools:ignore="HardcodedText" />
+
+
+        </LinearLayout>
+    </Toolbar>
+
     <LinearLayout style="@style/llMenu">
 
         <Button

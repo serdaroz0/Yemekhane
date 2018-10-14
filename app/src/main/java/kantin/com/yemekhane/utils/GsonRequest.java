@@ -26,14 +26,12 @@ class GsonRequest<T> extends JsonRequest<T> {
 
     /**
      * Make a GET request and return a parsed object from JSON.
-     *
-     * @param url     URL of the request to make
-     * @param clazz   Relevant class object, for Gson's reflection
+     *  @param url URL of the request to make
+     * @param clazz Relevant class object, for Gson's reflection
      * @param headers Map of request headers
      */
-    public GsonRequest(int method, String url, Class<T> clazz, JSONObject postData, Map<String, String> headers,
-                       Response.Listener<T> listener, Response.ErrorListener errorListener) {
-        super(method, url, (postData == null) ? "" : postData.toString(), listener, errorListener);
+    GsonRequest(String url, Class<T> clazz, JSONObject postData, Map<String, String> headers, Response.Listener<T> listener, Response.ErrorListener errorListener) {
+        super(Method.POST, url, (postData == null) ? "" : postData.toString(), listener, errorListener);
         this.clazz = clazz;
         this.listener = listener;
     }
@@ -53,13 +51,9 @@ class GsonRequest<T> extends JsonRequest<T> {
     @Override
     protected Response<T> parseNetworkResponse(NetworkResponse response) {
         try {
-            String json = new String(
-                    response.data,
-                    HttpHeaderParser.parseCharset(response.headers, "utf-8"));
+            String json = new String(response.data, HttpHeaderParser.parseCharset(response.headers, "utf-8"));
 
-            return Response.success(
-                    gson.fromJson(json, clazz),
-                    HttpHeaderParser.parseCacheHeaders(response));
+            return Response.success(gson.fromJson(json, clazz), HttpHeaderParser.parseCacheHeaders(response));
         } catch (UnsupportedEncodingException | JsonSyntaxException e) {
             return Response.error(new ParseError(e));
         }

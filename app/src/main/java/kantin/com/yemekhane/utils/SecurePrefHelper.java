@@ -22,36 +22,36 @@ public class SecurePrefHelper {
         getPrefClass(context).put(key, val);
     }
 
-    public static boolean getPrefBoolean(Context c, String s) {
-        return Boolean.parseBoolean(getPrefString(c, s, "false"));
-    }
-
-    public static int getPrefInt(Context c, String s) {
-        return Integer.parseInt(getPrefString(c, s, "-1"));
-    }
-
-    public static long getPrefLong(Context c, String s) {
-        return Long.parseLong(getPrefString(c, s, "-1"));
-    }
-
-    public static float getPrefFloat(Context c, String s) {
-        return Float.parseFloat(getPrefString(c, s, "-1"));
-    }
-
-    public static void setPrefBoolean(Context c, String s, boolean val) {
-        setPrefString(c, s, Boolean.toString(val));
-    }
-
-    public static void setPrefInt(Context c, String s, int val) {
-        setPrefString(c, s, Integer.toString(val));
-    }
-
-    public static void setPrefLong(Context c, String s, long val) {
-        setPrefString(c, s, Long.toString(val));
-    }
-
-    public static void setPrefFloat(Context c, String s, float val) {
-        setPrefString(c, s, Float.toString(val));
-    }
+//    public static boolean getPrefBoolean(Context c, String s) {
+    //        return Boolean.parseBoolean(getPrefString(c, s, "false"));
+    //    }
+    //
+    //    public static int getPrefInt(Context c, String s) {
+    //        return Integer.parseInt(getPrefString(c, s, "-1"));
+    //    }
+    //
+    //    public static long getPrefLong(Context c, String s) {
+    //        return Long.parseLong(getPrefString(c, s, "-1"));
+    //    }
+    //
+    //    public static float getPrefFloat(Context c, String s) {
+    //        return Float.parseFloat(getPrefString(c, s, "-1"));
+    //    }
+    //
+    //    public static void setPrefBoolean(Context c, String s, boolean val) {
+    //        setPrefString(c, s, Boolean.toString(val));
+    //    }
+    //
+    //    public static void setPrefInt(Context c, String s, int val) {
+    //        setPrefString(c, s, Integer.toString(val));
+    //    }
+    //
+    //    public static void setPrefLong(Context c, String s, long val) {
+    //        setPrefString(c, s, Long.toString(val));
+    //    }
+    //
+    //    public static void setPrefFloat(Context c, String s, float val) {
+    //        setPrefString(c, s, Float.toString(val));
+    //    }
 
 }

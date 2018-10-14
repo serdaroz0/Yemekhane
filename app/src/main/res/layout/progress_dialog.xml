@@ -7,13 +7,13 @@
     android:gravity="center"
     android:orientation="vertical"
     tools:ignore="Overdraw">
+
     <ImageView
         android:id="@+id/ivLoading"
         android:layout_width="72dp"
         android:layout_height="72dp"
-        android:src="@drawable/ic_burger"
-        android:padding="8dp"
         android:background="@drawable/loading_animation"
         android:contentDescription="@string/empty"
-         />
+        android:padding="12dp"
+        android:src="@drawable/ic_burger" />
 </LinearLayout>

@@ -52,14 +52,18 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
-                android:gravity="center" />
+                android:gravity="center"
+                android:textColor="@color/black" />
 
             <Button
                 android:id="@+id/btnChangeMenu"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_margin="5dp"
                 android:layout_weight="2"
+                android:background="@drawable/button"
                 android:gravity="center"
+                android:textColor="@color/white"
                 android:textSize="@dimen/font_size_smx" />
 
             <ImageView

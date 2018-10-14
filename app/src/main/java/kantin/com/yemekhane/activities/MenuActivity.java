@@ -20,6 +20,8 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        Objects.requireNonNull(getSupportActionBar()).hide();
+
     }
 
     public void getText(View view) {
@@ -29,7 +31,7 @@ public class MenuActivity extends AppCompatActivity {
             Bundle extras = getIntent().getExtras();
             if (extras != null) {
                 if (Objects.requireNonNull(extras.getString("from")).equals("normal")) {
-                    Services.getInstance().addAndDelete(this, extras.getInt("id"), buttonText, true, extras.getInt("selectedSpinner") + 1, "", obj -> {
+                    Services.getInstance().addAndDelete(extras.getInt("id"), buttonText, true, extras.getInt("selectedSpinner") + 1, "", obj -> {
                         codeModel = (CodeModel) obj;
                         if (codeModel.getCode() == 0) {
                             Util.showToast(MenuActivity.this, R.string.saved);

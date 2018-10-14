@@ -37,9 +37,6 @@ public class SearchList {
         return menuPicktime;
     }
 
-    public void setMenuPicktime(String menuPicktime) {
-        this.menuPicktime = menuPicktime;
-    }
 
     public String getNote() {
         return note;
@@ -53,9 +50,6 @@ public class SearchList {
         return paymentFinishdate;
     }
 
-    public void setPaymentFinishdate(String paymentFinishdate) {
-        this.paymentFinishdate = paymentFinishdate;
-    }
 
     public String getMenu() {
         return menu;
@@ -69,41 +63,25 @@ public class SearchList {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getFullName() {
         return fullName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
 
     public int getPaymentPeriod() {
         return paymentPeriod;
     }
 
-    public void setPaymentPeriod(int paymentPeriod) {
-        this.paymentPeriod = paymentPeriod;
-    }
 
     public String getSchoolNumber() {
         return schoolNumber;
     }
 
-    public void setSchoolNumber(String schoolNumber) {
-        this.schoolNumber = schoolNumber;
-    }
 
     public Boolean getIsSelected() {
         return isSelected;
     }
 
-    public void setIsSelected(Boolean isSelected) {
-        this.isSelected = isSelected;
-    }
 
 }
 

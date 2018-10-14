@@ -155,17 +155,12 @@ public class MainActivity extends AppCompatActivity {
             try {
                 if (i > 0) {
                     if (!savedSearchLists.get(i).getSchoolNumber().equals(savedSearchLists.get(i - 1).getSchoolNumber())) {
-                        mailFormat.append("\n\n").append(savedSearchLists.get(i).getSchoolNumber()).append(" ").append(savedSearchLists.get(i).getFullName()).append(" ").append(savedSearchLists.get(i).getMenu()).append(" ").append(savedSearchLists.get(i).getNote());
-                        Log.d("onFinish1: ", String.valueOf(savedSearchListModels.getData().get(i).getSchoolNumber()));
-                        Log.d("onFinish2: ", String.valueOf(savedSearchListModels.getData().get(i - 1).getSchoolNumber()));
-
+                        mailFormat.append("\n\n").append(savedSearchLists.get(i).getSchoolNumber()).append(" -- ").append(savedSearchLists.get(i).getFullName()).append(" -- ").append(savedSearchLists.get(i).getMenu()).append(" -- ").append(savedSearchLists.get(i).getNote());
                     } else {
-                        mailFormat.append("\n").append(savedSearchLists.get(i).getSchoolNumber()).append(" ").append(savedSearchLists.get(i).getFullName()).append(" ").append(savedSearchLists.get(i).getMenu()).append(" ").append(savedSearchLists.get(i).getNote());
-                        Log.d("onFinish1: ", String.valueOf(savedSearchListModels.getData().get(i).getSchoolNumber()));
-                        Log.d("onFinish2: ", String.valueOf(savedSearchListModels.getData().get(i - 1).getSchoolNumber()));
+                        mailFormat.append("\n").append(savedSearchLists.get(i).getSchoolNumber()).append(" -- ").append(savedSearchLists.get(i).getFullName()).append(" -- ").append(savedSearchLists.get(i).getMenu()).append(" -- ").append(savedSearchLists.get(i).getNote());
                     }
                 } else {
-                    mailFormat = new StringBuilder("\n" + savedSearchLists.get(i).getSchoolNumber() + (" ") + savedSearchLists.get(i).getFullName() + (" ") + savedSearchLists.get(i).getMenu() + (" ") + savedSearchLists.get(i).getNote());
+                    mailFormat = new StringBuilder("\n" + savedSearchLists.get(i).getSchoolNumber() + (" -- ") + savedSearchLists.get(i).getFullName() + (" -- ") + savedSearchLists.get(i).getMenu() + (" -- ") + savedSearchLists.get(i).getNote());
                 }
             } catch (Exception ex) {
                 //pass
@@ -184,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
         int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
         String[] days = getResources().getStringArray(R.array.days);
         String dayNow = days[dayOfWeek - 1];
-        tvDate.setText(formattedCurrentDate + "-" + dayNow);
+        tvDate.setText(formattedCurrentDate + " - " + dayNow);
     }
 
     private void getQuery(String words) {
