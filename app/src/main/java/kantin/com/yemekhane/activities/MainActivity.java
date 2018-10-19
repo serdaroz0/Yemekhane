@@ -145,30 +145,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendMail(View view) {
-        Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-        StringBuilder mailFormat = new StringBuilder();
-        Log.d("onFinish: ", String.valueOf(savedSearchListModels.getData().size()));
-        Collections.sort(savedSearchLists, (o1, o2) -> o1.getSchoolNumber().compareTo(o2.getSchoolNumber()));
-        emailIntent.setType("message/rfc822");
-        emailIntent.setData(Uri.parse("mailto:"));
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
-        for (int i = 0; i < savedSearchLists.size(); i++) {
+        try {
+            StringBuilder mailFormat = null;
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
             try {
-                if (i > 0) {
-                    if (!savedSearchLists.get(i).getSchoolNumber().equals(savedSearchLists.get(i - 1).getSchoolNumber())) {
-                        mailFormat.append("\n\n").append(savedSearchLists.get(i).getSchoolNumber()).append(" -- ").append(savedSearchLists.get(i).getFullName()).append(" -- ").append(savedSearchLists.get(i).getMenu()).append(" -- ").append(savedSearchLists.get(i).getNote());
-                    } else {
-                        mailFormat.append("\n").append(savedSearchLists.get(i).getSchoolNumber()).append(" -- ").append(savedSearchLists.get(i).getFullName()).append(" -- ").append(savedSearchLists.get(i).getMenu()).append(" -- ").append(savedSearchLists.get(i).getNote());
-                    }
-                } else {
-                    mailFormat = new StringBuilder("\n" + savedSearchLists.get(i).getSchoolNumber() + (" -- ") + savedSearchLists.get(i).getFullName() + (" -- ") + savedSearchLists.get(i).getMenu() + (" -- ") + savedSearchLists.get(i).getNote());
-                }
+                mailFormat = new StringBuilder();
             } catch (Exception ex) {
                 //pass
             }
+            Collections.sort(savedSearchLists, (o1, o2) -> o1.getSchoolNumber().compareTo(o2.getSchoolNumber()));
+            emailIntent.setType("message/rfc822");
+            emailIntent.setData(Uri.parse("mailto:"));
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
+            for (int i = 0; i < savedSearchLists.size(); i++) {
+                try {
+                    if (i > 0) {
+                        if (!savedSearchLists.get(i).getSchoolNumber().equals(savedSearchLists.get(i - 1).getSchoolNumber())) {
+                            mailFormat.append("\n\n").append(savedSearchLists.get(i).getSchoolNumber()).append(" -- ").append(savedSearchLists.get(i).getFullName()).append(" -- ").append(savedSearchLists.get(i).getMenu()).append(" -- ").append(savedSearchLists.get(i).getNote());
+                        } else {
+                            mailFormat.append("\n").append(savedSearchLists.get(i).getSchoolNumber()).append(" -- ").append(savedSearchLists.get(i).getFullName()).append(" -- ").append(savedSearchLists.get(i).getMenu()).append(" -- ").append(savedSearchLists.get(i).getNote());
+                        }
+                    } else {
+                        mailFormat = new StringBuilder("\n" + savedSearchLists.get(i).getSchoolNumber() + (" -- ") + savedSearchLists.get(i).getFullName() + (" -- ") + savedSearchLists.get(i).getMenu() + (" -- ") + savedSearchLists.get(i).getNote());
+                    }
+                } catch (Exception ex) {
+                    //pass
+                }
+            }
+            emailIntent.putExtra(Intent.EXTRA_TEXT, tvDate.getText() + "\n" + mailFormat);
+            startActivity(Intent.createChooser(emailIntent, "Mail Gönder"));
+        } catch (Exception ex) {
+            //pass
         }
-        emailIntent.putExtra(Intent.EXTRA_TEXT, tvDate.getText() + "\n" + mailFormat);
-        startActivity(Intent.createChooser(emailIntent, "Mail Gönder"));
     }
 
     @SuppressLint("SetTextI18n")
