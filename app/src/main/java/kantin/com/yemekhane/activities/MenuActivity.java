@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import java.util.Objects;
 
@@ -15,19 +16,23 @@ import kantin.com.yemekhane.utils.Util;
 
 public class MenuActivity extends AppCompatActivity {
     private CodeModel codeModel = new CodeModel();
+    ImageView ivBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         Objects.requireNonNull(getSupportActionBar()).hide();
+        ivBack = findViewById(R.id.ivBack);
 
     }
+
 
     public void getText(View view) {
         try {
             Button b = (Button) view;
             String buttonText = b.getText().toString();
+
             Bundle extras = getIntent().getExtras();
             if (extras != null) {
                 if (Objects.requireNonNull(extras.getString("from")).equals("normal")) {
@@ -67,4 +72,8 @@ public class MenuActivity extends AppCompatActivity {
     }
 
 
+    public void onBackPressed(View view) {
+        onBackPressed();
+        finish();
+    }
 }

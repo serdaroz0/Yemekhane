@@ -7,16 +7,27 @@
     android:orientation="vertical"
     tools:context=".activities.MenuActivity">
 
-    <Toolbar
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/black">
+
+        <ImageView
+            android:contentDescription="@string/back"
+            android:id="@+id/ivBack"
+            android:layout_marginStart="10dp"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:onClick="onBackPressed"
+            android:src="@drawable/ic_back" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
             tools:ignore="UseCompoundDrawables">
+
 
             <TextView
                 android:layout_width="0dp"
@@ -31,7 +42,7 @@
 
 
         </LinearLayout>
-    </Toolbar>
+    </RelativeLayout>
 
     <LinearLayout style="@style/llMenu">
 

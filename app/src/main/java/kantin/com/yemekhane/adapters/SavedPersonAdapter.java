@@ -25,7 +25,7 @@ import kantin.com.yemekhane.model.searchModel.SearchList;
 import kantin.com.yemekhane.utils.Services;
 import kantin.com.yemekhane.utils.Util;
 
-public class SavedPersonAdapter extends RecyclerView.Adapter<SavedPersonAdapter.ViewHolder> {
+public class    SavedPersonAdapter extends RecyclerView.Adapter<SavedPersonAdapter.ViewHolder> {
 
     private final List<SearchList> savedPersonModels;
     private final Context context;
@@ -91,7 +91,6 @@ public class SavedPersonAdapter extends RecyclerView.Adapter<SavedPersonAdapter.
                     holder.btnChangeMenu.setText(dp.getMenu());
                     holder.tvMenuSaved.setVisibility(View.GONE);
                     holder.tvTimeSaved.setTextColor(context.getResources().getColor(R.color.blue_tone));
-
                     break;
                 case 3:
                     holder.cvSaved.setCardBackgroundColor(context.getResources().getColor(R.color.gray));

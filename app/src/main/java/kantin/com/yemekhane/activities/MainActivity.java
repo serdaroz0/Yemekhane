@@ -130,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
     public void chooseChildHood(View view) {
         Button b = (Button) view;
         String buttonText = b.getText().toString();
+        buttonText = buttonText.equals(getString(R.string.ana_sınıfı)) ? "0" : buttonText;
         SecurePrefHelper.setPrefString(this, "numberText", buttonText);
         llWordsChildSchool.setVisibility(View.VISIBLE);
         numbers.setVisibility(View.GONE);
@@ -189,10 +190,11 @@ public class MainActivity extends AppCompatActivity {
                 searchListModels = (SearchListModel) obj;
                 searchLists = searchListModels.getData();
                 for (int i = 0; i < searchLists.size(); i++) {
-                    if (searchLists.get(i).getMenu().equals("")) {
+                    if (searchLists.get(i).getMenu() == null) {
                         searchLists.get(i).setMenu("Menü");
                     }
                 }
+                Collections.sort(searchLists, (o1, o2) -> o1.getFullName().compareTo(o2.getFullName()));
                 mAdapter = new PersonAdapter(searchLists, MainActivity.this);
                 mRecyclerView.setAdapter(mAdapter);
                 mAdapter.notifyDataSetChanged();
@@ -204,7 +206,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void getSavedListAndDeleteAll() {
         setSavedListAdapter();
-
         StringBuilder idList = new StringBuilder();
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String currentDateandTime = sdf.format(new Date());
@@ -225,7 +226,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }, true);
         }
-
         Services.getInstance().getSavedStudentList(this, obj -> {
             savedSearchListModels = (SearchListModel) obj;
             savedSearchLists = savedSearchListModels.getData();
